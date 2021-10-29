@@ -31,9 +31,7 @@
 
 【提问前】可以首先看看 [issue](https://gitee.com/moxi159753/mogu_blog_v2/issues) 或者  [FAQ文档](http://www.moguit.cn/#/info?blogOid=288)，可能你的问题别人也遇到过
 
-【提问前】可以提前阅读 [如何向开源社区提问题](http://www.moguit.cn/#/info?blogUid=b0f76c94a81fa3b815f8e39e4dc889f8)
 
-【提问】推荐使用 [Gitee issue](https://gitee.com/moxi159753/mogu_blog_v2/issues) 进行提问，因为issue解决后能够保留解决记录，帮助其它小伙伴避坑。其次可以使用  <a href="##关注&交流">QQ群 </a>  或者 <a href="##前言">微信群 </a> 进行提问。群里提问注意提问的时间，把遇到**问题的详细过程都描述清楚**，最好**配上图文信息**，这样能有利于更高效的解决问题。
 
 # 项目部署
 mvn clean install -DskipTests
@@ -84,7 +82,7 @@ mvn clean install -DskipTests
 
 ## 后期维护
 
-- **master** 分支为主分支，是基于 **Nacos** 分支的稳定版本
+- **main** 分支为主分支，是基于 **Nacos** 分支的稳定版本
 
 ## 项目介绍
 
@@ -116,7 +114,7 @@ Laputa IOT 物联网平台( **Laputa IOT** )，一个**基于微服务架构的�
 
 Laputa IOT 物联网平台使用了一些监控的 **SpringCloud** 组件，但是并不一定都需要部署，必须启动的服务包含
 
-`nacos`，`nginx`，`rabbitmq`， `redis`，`mysql`，`laputa-gateway`，`laputa-sms`，`laputa-picture`， `laputa-web`, `laputa-admin`
+`nacos`，`nginx`，`rabbitmq`， `redis`，`mysql`，`elaseticsearch`，`emqtt`，`laputa-gateway`，`laputa-sms`，`laputa-file`，`laputa-log`, `laputa-auth, `laputa-upms`
 
 
 ## 项目特点
@@ -137,8 +135,8 @@ Laputa IOT 物联网平台使用了一些监控的 **SpringCloud** 组件，但�
 - 采用自研的评论模块，实现评论邮件通知
 - 采用 **Nacos** 作为服务发现和配置中心，轻松完成项目的配置的维护
 - 采用 **Sentinel** 流量控制框架，通过配置再也不怕网站被爆破
-- 采用[uniapp](https://uniapp.dcloud.io/) 和[ColorUi](https://github.com/weilanwl/ColorUI) 完成Laputa IOT 物联网平台的移动端门户页面搭建
-- 支持多种文本编辑器，**Markdown** 编辑器([Vditor](https://github.com/Vanessa219/vditor))和富文本编辑器([CKEditor](https://github.com/ckeditor/ckeditor4))随心切换
+
+  支持多种文本编辑器，**Markdown** 编辑器([Vditor](https://github.com/Vanessa219/vditor))和富文本编辑器([CKEditor](https://github.com/ckeditor/ckeditor4))随心切换
 - 采用 **ElasticStack**【**ElasticSearch** + **Beats** + **Kibana** + **Logstash**】[搭建Laputa IOT 物联网平台日志收集]
 - 采用 **Docker Compose** 完成容器编排，**Portainer** 实现容器可视化，支持[一键部署线上环境]
 
@@ -170,7 +168,7 @@ Laputa IOT 物联网平台使用了一些监控的 **SpringCloud** 组件，但�
 
 ### 系统架构图
 
-![image text](./doc/images/arch/server.jpg)
+
 
 >  Laputa IOT 物联网平台系统架构图，使用 [Processon](https://www.processon.com/i/5e380df1e4b05b335ffa81e9) 在线绘制
 
@@ -262,67 +260,7 @@ Laputa IOT 物联网平台使用了一些监控的 **SpringCloud** 组件，但�
 
 ## 快速开始
 
-### [推荐] Windows+VMware一键搭建Laputa IOT 物联网平台本地开发环境
 
-参考 [Windows+VMware一键搭建Laputa IOT 物联网平台本地开发环境](http://www.moguit.cn/#/info?blogOid=583)，快速在 **Windows** 平台搭建Laputa IOT 物联网平台开发环境，将中间件安装在 **VMware** 中。
-
-### Windows环境下搭建Laputa IOT 物联网平台
-
-参考 [window环境下配置Laputa IOT 物联网平台环境](http://www.moguit.cn/#/info?blogUid=082ca226cf2e4103b0ffa6e6c13d7b14)，能够在 **Windows**下搭建Laputa IOT 物联网平台的开发环境，同时将**所有组件**安装在**Windows** 环境中
-
-### [推荐] DockerCompose一键部署Laputa IOT 物联网平台(Nacos版)
-
-参考 [DockerCompose一键部署Laputa IOT 物联网平台(Nacos版)](http://www.moguit.cn/#/info?blogOid=565) ，在 **Linux** 服务器中，一键完成Laputa IOT 物联网平台项目的部署
-
-### Docker搭建Laputa IOT 物联网平台
-
-参考 [使用Docker快速搭建Laputa IOT 物联网平台(Eureka分支)](http://www.moguit.cn/#/info?blogUid=ab8377106a0d4b9f8d66131e4312c69e)，快速在Linux服务器中搭建好物联网运行环境，通过发布 **Jar** 包的方式完成部署
-
-参考 [使用Docker快速搭建Laputa IOT 物联网平台(Nacos分支)](http://moguit.cn/#/info?blogUid=8100dcb585fff77e3fa25eed50e3708e)，快速在Linux服务器中搭建好物联网运行环境，通过发布 **Jar** 包的方式完成部署
-
-### Laputa IOT 物联网平台部署到云服务器
-
-【**推荐**】参考[IDEA发布Laputa IOT 物联网平台Docker镜像到云服务器(适用于DockerCompose部署)](http://moguit.cn/#/info?blogOid=588)，在你修改Nacos分支物联网源码后，将重新制作镜像部署到云服务器，然后通过DockerCompose进行启动。
-
-参考[Laputa IOT 物联网平台如何部署到阿里云服务器(Eureka分支)](http://www.moguit.cn/#/info?blogUid=89defe3f4a3f317cba9aa0cdb9ff879e)，在你修改Eureka分支物联网源码后将项目打包部署到云服务器
-
-参考[Laputa IOT 物联网平台如何部署到阿里云服务器(Nacos分支)](http://www.moguit.cn/#/info?blogUid=ecde4ce178bdc1a241e9f9ddd9052013)，在你修改Nacos分支物联网源码后将项目打包部署到云服务器
-
-### 使用Github Actions完成Laputa IOT 物联网平台持续集成
-
-参考 [使用Github Action完成Laputa IOT 物联网平台持续集成](http://moguit.cn/#/info?blogUid=0762bfb392c2cf0a94c8a7934fe46f8f) ，在你提交一个 **push** 请求后，通过 **Github Actions** 能够完成Laputa IOT 物联网平台自动化 编译、打包、部署等操作。
-
-### 切换搜索模式
-
-参考[Laputa IOT 物联网平台切换搜索模式](http://moguit.cn/#/info?blogUid=4042b4f4088e4e37e95d9fc75d97298b)，完成Laputa IOT 物联网平台的搜索引擎切换，目前支持 **Solr**、**ElasticSearch**、**SQL** 的方式
-
-### 配置七牛云对象存储
-
-参考[Laputa IOT 物联网平台切换七牛云存储](http://moguit.cn/#/info?blogUid=735ed389c4ad1efd321fed9ac58e646b)，配置文件的七牛云对象存储，及本地文件存储
-
-### 使用Zipkin搭建Laputa IOT 物联网平台链路追踪
-
-参考[使用Zipkin搭建Laputa IOT 物联网平台链路追踪](http://moguit.cn/#/info?blogUid=35bd93cabc08611c7f74ce4564753ef9)，通过聚合各业务系统调用延迟数据，达到链路调用监控跟踪，快速定位其中延迟高的服务
-
-### 使用Nacos搭建Laputa IOT 物联网平台服务注册和配置中心
-
-参考[Laputa IOT 物联网平台Nacos部署指南](http://www.moguit.cn/#/info?blogUid=8dc52bd61e36fa56cfc7699815375572)，搭建Laputa IOT 物联网平台的服务注册和配置中心
-
-### 使用Sentinel搭建Laputa IOT 物联网平台流量控制
-
-参考[Laputa IOT 物联网平台Sentinel安装指南](http://www.moguit.cn/#/info?blogUid=7135efc7f536769efd0d0483c687ba07)，**Sentinel** 被称为分布式系统的流量防卫兵，相当于Hystrix
-
-### Laputa IOT 物联网平台小程序发布
-
-参考[Laputa IOT 物联网平台QQ小程序发布指南](http://www.moguit.cn/#/info?blogUid=80d3eae77c16cea10e119b9f1a1da4c8)，完成Laputa IOT 物联网平台 **uniapp** 移动端的启动和发布
-
-### Laputa IOT 物联网平台扩展新的功能和页面
-
-参考[Laputa IOT 物联网平台如何扩展新的功能和页面](http://moguit.cn/#/info?blogUid=4eb7694c58cf8205885b1e8565b1a94e)，在Laputa IOT 物联网平台现有架构基础上，开发自己需要的页面。
-
-###  使用ELK搭建Laputa IOT 物联网平台日志收集
-
-参考[搭建Laputa IOT 物联网平台日志收集](https://gitee.com/moxi159753/LearningNotes/tree/master/ElasticStack/6_%E4%BD%BF%E7%94%A8ELK%E6%90%AD%E5%BB%BA%E8%98%91%E8%8F%87%E5%8D%9A%E5%AE%A2%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86)，使用 **Docker** 快速搭建 **ELK** 环境用于Laputa IOT 物联网平台日志收集
 
 ## 环境搭建
 
@@ -358,29 +296,13 @@ Laputa IOT 物联网平台使用了一些监控的 **SpringCloud** 组件，但�
 
 ## 致谢
 
-**Laputa IOT 物联网平台**起初参考了很多**开源项目**的**解决方案**，**开源不易，感谢分享**
 
-- [<img src="./doc/images/gitee/jetbrains.png" width="60" />](https://www.jetbrains.com/?from=laputa-blog_v2)感谢 **[jetbrains](https://www.jetbrains.com/?from=laputa-blog_v2)** 提供的开源License 
-
-- 感谢**杨青小姐姐**的物联网模板：[http://www.yangqq.com/](http://www.yangqq.com/)
-- 感谢**PanJiaChen**的Vue后台管理模板：[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
-- Vue项目搭建参考这篇物联网：[https://segmentfault.com/a/1190000009506097](https://segmentfault.com/a/1190000009506097)
-- 感谢**苞米豆**提供的 **Mybatis-plus**框架：[http://mp.baomidou.com/](http://mp.baomidou.com/)
-- 感谢**yadong.zhang**提供的第三方登录开源库：[https://gitee.com/yadong.zhang/JustAuth](https://gitee.com/yadong.zhang/JustAuth)
-- 感谢 **bihell** 的 **Dice** 物联网项目：[https://github.com/bihell/Dice](https://github.com/bihell/Dice)
-- 感谢 **pppercyWang** 提供的Emoji表情评论组件：[vue-emoji-comment](https://github.com/pppercyWang/vue-emoji-comment)
-- 感谢 **若依** 提供的 **RuoYi** 项目：[https://gitee.com/y_project/RuoYi](https://gitee.com/y_project/RuoYi)
-- 感谢 **yaowei9363** 提供的 **Vue侧目录组件**： [vue-side-catalog](https://github.com/yaowei9363/vue-side-catalog) 
-- 感谢 **奇文社区** 提供的 **奇文网盘** 项目：https://gitee.com/qiwen-cloud/qiwen-file
-- 感谢 **weilanwl** 提供的 **ColorUI**：https://github.com/weilanwl/ColorUI
 
 ## 关注&交流
 
-为了方便小伙伴们沟通交流，我创建了QQ群 (**加群备注**：`Laputa IOT 物联网平台`) <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=soh24RYi"><img border="0" src="./doc/images/qq/group.png" alt="Laputa IOT 物联网平台交流群" title="Laputa IOT 物联网平台交流群"></a>，目前项目还存在很多不足之处，欢迎各位老哥进群进行技术交流，为了防止广告进入，希望加群的时候能添加备注，谢谢~
-
-|         ~~QQ群（备注：`Laputa IOT 物联网平台`）【群满】~~          |            QQ群（备注：`Laputa IOT 物联网平台`）【推荐】            | QQ群（备注：`Laputa IOT 物联网平台`）                               |
-| :---------------------------------------------------: | :----------------------------------------------------: | ------------------------------------------------------ |
-| <img src="./doc/images/qq/qqGroup.png" width="200" /> | <img src="./doc/images/qq/qqGroup2.png" width="200" /> | <img src="./doc/images/qq/qqGroup3.png" width="200" /> |
+|                       微信                       |      |      |
+| :----------------------------------------------: | :--: | ---- |
+| <img src="./assets/myaccount.jpg" width="200" /> |      |      |
 
 ## 未来计划
 
@@ -395,11 +317,10 @@ Laputa IOT 物联网平台使用了一些监控的 **SpringCloud** 组件，但�
 - [x] 增加数据字典管理
 - [x] 前端增加用户个人中心
 - [x] 增加一个FAQ常见问题文档
-- [x] 集成表单构建页面，来源于[RuoYi](https://gitee.com/y_project/RuoYi)
+- [x] 集成表单构建页面，来源于Vben
 - [x] 增加物联网详情页目录导航，来源于[vue-side-catalog](https://github.com/yaowei9363/vue-side-catalog)
 - [x] 资源管理页面集成网盘管理
 - [x] 使用Sentinel做服务限流和熔断
-- [x] 增加Laputa IOT 物联网平台小程序项目 uniapp_laputa-web，基于[ColorUI](https://github.com/weilanwl/ColorUI) 和 [Uniapp](https://uniapp.dcloud.io/)
 - [x] 富文本编辑器和Markdown编辑器任意切换
 - [x] 使用ELK搭建[Laputa IOT 物联网平台日志收集功能](http://www.moguit.cn/#/info?blogUid=fd9ab58588d93ef792ec72a359a09f6c)
 - [x] 使用Minio [搭建对象存储服务](http://www.moguit.cn/#/info?blogUid=a1058b2d030310e2c5d7b0584e514f1f)
@@ -410,6 +331,7 @@ Laputa IOT 物联网平台使用了一些监控的 **SpringCloud** 组件，但�
 - [x] 增加更新记录
 - [x] 完善爬虫模块
 - [x] 完善网关模块
+- [ ] 增加Laputa IOT 物联网平台小程序项目 uniapp_laputa-web，基于[ColorUI](https://github.com/weilanwl/ColorUI) 和 [Uniapp](https://uniapp.dcloud.io/)
 - [ ] 增加K8S部署Laputa IOT 物联网平台教程
 - [ ] 增加大屏数据展示页面
 - [ ] 增加定时任务模块
@@ -433,44 +355,3 @@ Laputa IOT 物联网平台使用了一些监控的 **SpringCloud** 组件，但�
 
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-## 赞赏
-
-**服务器**和**域名**等服务的购买和续费都会**产生一定的费用**，为了**维持项目的正常运作**，如果觉得本项目**对您有帮助**的话，欢迎朋友能够**给予一些支持**，陌溪将用于**提升服务器配置**，感谢小伙伴们的支持（ **ps**: 小伙伴赞赏的时候可以备注一下下~）
-
-|                       微信                       |                      支付宝                       |
-| :----------------------------------------------: | :-----------------------------------------------: |
-| <img src="./doc/images/qq/wx.png" width="200" /> | <img src="./doc/images/qq/zfb.png" width="200" /> |
-
-## 移动端截图
-
-> 目前移动端版本的代码已经开源至Nacos分支，如果想体验的小伙伴可以移动至Nacos分支
-
-![image text](./doc/images/uniapp/uniapp.gif)
-
-## 网站截图
-
-|                        Admin端                         |                                                       |
-| :----------------------------------------------------: | :---------------------------------------------------: |
-|      ![image text](./doc/images/admin/login.png)       |    ![image text](./doc/images/admin/dashboard.png)    |
-|       ![image text](./doc/images/admin/blog.png)       |    ![image text](./doc/images/admin/blogEdit.png)     |
-|    ![image text](./doc/images/admin/addPicture.png)    |    ![image text](./doc/images/admin/blogSort.png)     |
-|     ![image text](./doc/images/admin/blogTag.png)      |  ![image text](./doc/images/admin/blogRecommend.png)  |
-|     ![image text](./doc/images/admin/blogLink.png)     |   ![image text](./doc/images/admin/systemConf.png)    |
-|     ![image text](./doc/images/admin/aboutMe.png)      |      ![image text](./doc/images/admin/user.png)       |
-|     ![image text](./doc/images/admin/comment.png)      |     ![image text](./doc/images/admin/webConf.png)     |
-|      ![image text](./doc/images/admin/admin.png)       |  ![image text](./doc/images/admin/categoryMenu.png)   |
-|                                                        |                                                       |
-|      ![image text](./doc/images/admin/sysLog.png)      |    ![image text](./doc/images/admin/exception.png)    |
-|      ![image text](./doc/images/admin/visit.png)       |     ![image text](./doc/images/admin/picture.png)     |
-|     ![image text](./doc/images/admin/swagger.png)      |   ![image text](./doc/images/admin/pictureSort.png)   |
-|                                                        |                                                       |
-|   ![image text](./doc/images/admin/monitor_solr.png)   | ![image text](./doc/images/admin/monitor_eureka.png)  |
-|  ![image text](./doc/images/admin/monitor_druid.png)   |  ![image text](./doc/images/admin/monitor_admin.png)  |
-|  ![image text](./doc/images/admin/monitor_zipkin.png)  | ![image text](./doc/images/admin/monitor_elastic.png) |
-| ![image text](./doc/images/admin/monitor_rabbitmq.png) |                                                       |
-|                       **Web端**                        |                                                       |
-|       ![image text](./doc/images/web/index.png)        |      ![image text](./doc/images/web/index2.png)       |
-|       ![image text](./doc/images/web/index2.png)       |      ![image text](./doc/images/web/content.png)      |
-|       ![image text](./doc/images/web/login.png)        |       ![image text](./doc/images/web/about.png)       |
-|        ![image text](./doc/images/web/sort.png)        |     ![image text](./doc/images/web/classify.png)      |
-|        ![image text](./doc/images/web/time.png)        |    ![image text](./doc/images/web/messageBox.png)     |
