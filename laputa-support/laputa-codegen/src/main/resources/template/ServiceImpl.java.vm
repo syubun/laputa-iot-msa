@@ -1,0 +1,106 @@
+/*
+ *    Copyright (c) 2018-2025, Laputa IOT All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * Neither the name of the www.laputa-iot.com developer nor the names of its
+ * contributors may be used to endorse or promote products derived from
+ * this software without specific prior written permission.
+ * Author: SommerJiang (sommer_jiang@163.com)
+ */
+package ${package}.${moduleName}.service.impl;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.laputa.iot.common.core.constant.CacheConstants;
+import com.laputa.iot.common.core.util.BeanCopyUtil;
+import ${package}.${moduleName}.api.entity.${className};
+import ${package}.${moduleName}.api.dto.${className}DTO;
+import ${package}.${moduleName}.mapper.${className}Mapper;
+import ${package}.${moduleName}.service.${className}Service;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}> implements ${className}Service {
+
+
+
+
+    /**
+      * 分页查询${className}
+      * @param page
+      * @param ${classname} 参数列表
+      * @return
+      */
+    @Override
+    public IPage queryPage(Page page, ${className} ${classname}) {
+        IPage<${className}> selectPage = baseMapper.selectPage(page, Wrappers.query(${classname}));
+
+        return selectPage;
+    }
+    /**
+	 * 保存用户信息
+	 * @param ${classname} DTO 对象
+	 * @return success/fail
+	 */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = CacheConstants.${upperClassName}_KEY, key = "#${classname}.id")
+    public Boolean save${className}(${className} ${classname}) {
+
+        return this.save(${classname});
+    }
+
+
+    /**
+     * 通过ID查询${className}
+     * @param id ${classname}ID
+     * @return ${className}VO
+     */
+    @Override
+    @Cacheable(value = CacheConstants.${upperClassName}_KEY, key = "#id")
+    public   ${className} select${className}ById(Long id) {
+        return baseMapper.selectById(id);
+    }
+
+    /**
+     * 删除${className}
+     * @param id ${classname}ID
+     * @return Boolean
+     */
+    @Override
+    @CacheEvict(value = CacheConstants.${upperClassName}_KEY, key = "#id")
+    public Boolean delete${className}ById(Long id) {
+
+        return this.removeById(id);
+    }
+
+    @Override
+    @CacheEvict(value = CacheConstants.USER_DETAILS, key = "#${classname}.id")
+    public Boolean update${className}(${className} ${classname}) {
+        return this.updateById(${classname});
+    }
+
+
+
+
+
+}

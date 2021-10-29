@@ -1,0 +1,1 @@
+-javaagent:E:\LAPUTA-IOT-PLATFORM\laputa-iot-msa\DevOps\agent\skywalking-agent.jar  -Dskywalking.agent.service_name=laputa-org

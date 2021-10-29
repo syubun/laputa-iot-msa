@@ -1,0 +1,10 @@
+# 配置 feignclient 的全类名路径， 避免包名不规范无法扫描问题
+com.laputa.iot.common.feign.LaputaFeignAutoConfiguration=\
+  com.laputa.iot.upms.api.feign.RemoteSysRoleService,\
+  com.laputa.iot.upms.api.feign.RemoteParamService,\
+  com.laputa.iot.upms.api.feign.RemoteTenantService,\
+  com.laputa.iot.upms.api.feign.RemoteTokenService,\
+  com.laputa.iot.upms.api.feign.BaseAreaRemoteService,\
+  com.laputa.iot.upms.api.feign.RemoteClientDetailsService,\
+  com.laputa.iot.upms.api.feign.SmsRemoteService,\
+  com.laputa.iot.upms.api.feign.RemoteUserService

@@ -1,0 +1,68 @@
+# 使用说明 V1.1.0
+# 1. 使用docker-compose  宿主机不需要配置host来发现
+# 2. 无需修改源码，根目录  docker-compose up 即可
+# 3. 静静等待服务启动
+
+version: '2'
+services:
+
+   
+  laputa-register:
+    build:
+      context: ../../laputa-register
+    restart: always
+    container_name: laputa-register
+    image: laputa-register
+    ports:
+      - 8848:8848
+    networks:
+      - laputa
+
+
+  laputa-monitor:
+    build:
+      context: ../../laputa-support/laputa-monitor
+    restart: always
+    image: laputa-monitor
+    container_name: laputa-monitor
+    depends_on:
+      - laputa-register
+    ports:
+      - 5001:5001
+    networks:
+      - laputa
+
+  laputa-daemon-quartz:
+    build:
+      context: ../../laputa-support/laputa-daemon-quartz
+    restart: always
+    image: laputa-daemon-quartz
+    container_name: laputa-daemon-quartz
+    networks:
+      - laputa
+  laputa-tx-manager:
+    build:
+      context: ../../laputa-support/laputa-tx-manager
+    restart: always
+    image: laputa-tx-manager
+    container_name: laputa-tx-manager
+    networks:
+      - laputa
+    ports:
+      - 5004:5004
+      - 9998:9998
+
+  laputa-sentinel:
+    build:
+      context: ../../laputa-support/laputa-sentinel-dashboard
+    restart: always
+    image: laputa-sentinel
+    container_name: laputa-sentinel
+    networks:
+      - laputa
+    ports:
+      - 5020:5020
+
+networks:
+  laputa:
+    external: true

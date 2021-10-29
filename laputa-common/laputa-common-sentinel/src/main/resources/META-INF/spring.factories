@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.laputa.iot.common.sentinel.SentinelAutoConfiguration,\
+    com.laputa.iot.common.sentinel.handle.GlobalBizExceptionHandler

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~
+  ~      Copyright (c) 2018-2025, Laputa IOT All rights reserved.
+  ~
+  ~  Redistribution and use in source and binary forms, with or without
+  ~  modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice,
+  ~  this list of conditions and the following disclaimer.
+  ~  Redistributions in binary form must reproduce the above copyright
+  ~  notice, this list of conditions and the following disclaimer in the
+  ~  documentation and/or other materials provided with the distribution.
+  ~  Neither the name of the www.laputa-iot.com developer nor the names of its
+  ~  contributors may be used to endorse or promote products derived from
+  ~  this software without specific prior written permission.
+  ~  Author: SommerJiang (sommer_jiang@163.com)
+  ~
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laputa.iot.upms.mapper.SysMenuMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="sysMenuMap" type="com.laputa.iot.upms.entity.SysMenu">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="permission" column="permission"/>
+		<result property="component" column="component"/>
+		<result property="alias" column="alias"/>
+		<result property="path" column="path"/>
+		<result property="parampath" column="paramPath"/>
+		<result property="parentId" column="parent_id"/>
+		<result property="sort" column="sort"/>
+		<result property="type" column="type"/>
+		<result property="redirect" column="redirect"/>
+		<result property="title" column="title"/>
+		<result property="disabled" column="disabled"/>
+		<result property="ignoreAuth" column="ignore_auth"/>
+		<result property="affix" column="affix"/>
+		<result property="tag" column="tag"/>
+		<result property="ignoreKeepAlive" column="ignore_keep_alive"/>
+		<result property="icon" column="icon"/>
+		<result property="hideMenu" column="hide_menu"/>
+		<result property="hideTab" column="hide_tab"/>
+		<result property="showMenu" column="show_menu"/>
+		<result property="currentActiveMenu" column="current_active_menu"/>
+		<result property="frameSrc" column="frame_src"/>
+		<result property="transitionName" column="transition_name"/>
+		<result property="hideBreadcrumb" column="hide_breadcrumb"/>
+		<result property="hideChildrenInMenu" column="hide_children_in_menu"/>
+		<result property="hideChildrenInPath" column="hide_children_in_path"/>
+		<result property="carryParam" column="carry_param"/>
+		<result property="single" column="single"/>
+		<result property="isLink" column="is_link"/>
+		<result property="ignoreRoute" column="ignore_route"/>
+		<result property="deleted" column="deleted"/>
+		<result property="version" column="version"/>
+		<result property="createUser" column="create_user"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateUser" column="update_user"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="tenantId" column="tenant_id"/>
+	</resultMap>
+
+	<!--通过角色查询菜单信息-->
+	<select id="listMenusByRoleId" resultMap="sysMenuMap">
+		SELECT
+			sys_menu.*
+		FROM
+			sys_menu
+		LEFT JOIN sys_role_menu ON sys_menu.id = sys_role_menu.menu_id
+		WHERE
+			sys_menu.deleted = 0
+		AND sys_role_menu.role_id = #{roleId}
+		ORDER BY
+			sys_menu.sort DESC
+    </select>
+
+
+	<!--通过角色查询菜单信息-->
+	<select id="listMenusNoCatByRoleId" resultMap="sysMenuMap">
+		SELECT
+			sys_menu.*
+		FROM
+			sys_menu
+				LEFT JOIN sys_role_menu ON sys_menu.id = sys_role_menu.menu_id
+		WHERE
+			sys_menu.deleted = 0
+		   AND sys_menu.type != 0
+		  AND sys_role_menu.role_id = #{roleId}
+		ORDER BY
+			sys_menu.sort DESC
+	</select>
+
+	<!--通过角色ID 查询权限-->
+	<select id="listPermissionsByRoleIds" resultType="java.lang.String">
+        SELECT
+            m.permission
+        FROM
+        sys_menu m, sys_role_menu rm WHERE m.id = rm.menu_id AND m.deleted = 0 AND rm.role_id IN (#{roleIds})
+    </select>
+
+</mapper>

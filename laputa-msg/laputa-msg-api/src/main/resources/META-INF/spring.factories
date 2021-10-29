@@ -1,0 +1,4 @@
+# 配置 feignclient 的全类名路径， 避免包名不规范无法扫描问题
+com.laputa.iot.common.feign.LaputaFeignAutoConfiguration=\
+  com.laputa.iot.msg.api.client.MailClientService,\
+    com.laputa.iot.msg.api.client.SmsClientService

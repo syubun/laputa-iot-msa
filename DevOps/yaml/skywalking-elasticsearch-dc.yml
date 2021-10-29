@@ -1,0 +1,71 @@
+# 添加如下内容
+version: '3.8'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+    container_name: elasticsearch
+    restart: always
+    ports:
+      - 9200:9200
+#    healthcheck:
+#      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 3
+#      start_period: 40s
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - TZ=Asia/Shanghai
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - laputa
+
+  skywalking-oap:
+    image: apache/skywalking-oap-server:8.6.0-es7
+    container_name: skywalking-oap
+    depends_on:
+      - elasticsearch
+    links:
+      - elasticsearch
+    restart: always
+    ports:
+      - 11800:11800
+      - 12800:12800
+    healthcheck:
+      test: ["CMD-SHELL", "/skywalking/bin/swctl"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    environment:
+      TZ: Asia/Shanghai
+      SW_STORAGE: elasticsearch7
+      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:9200
+    networks:
+      - laputa
+
+  skywalking-ui:
+    image: apache/skywalking-ui:8.6.0
+    container_name: skywalking-ui
+    depends_on:
+      - skywalking-oap
+    links:
+      - skywalking-oap
+    restart: always
+    ports:
+      - 9500:8080
+    environment:
+      TZ: Asia/Shanghai
+      SW_OAP_ADDRESS: skywalking-oap:12800
+    networks:
+      - laputa
+
+networks:
+  laputa:
+    external: true
+

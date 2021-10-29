@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jenkins
+  labels:
+    app: jenkins
+
+spec:
+  serviceName: jenkins
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      containers:
+        - name: jenkins
+          image: jenkins/jenkins:lts
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 450m
+              memory: 4048Mi
+            requests:
+              cpu: 400m
+              memory: 4048Mi
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          ports:
+            - containerPort: 8080
+            - containerPort: 50000
+          volumeMounts:
+            - name: vol-home
+              mountPath: /var/jenkins_home
+            - name: vol-backup
+              mountPath: /backup
+      volumes:
+        - name: vol-home
+          hostPath:
+            path: /www/k8s/foxdev/jenkins/home
+            type: Directory
+        - name: vol-backup
+          hostPath:
+              path: /www/k8s/foxdev/jenkins/backup
+              type: Directory

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~
+  ~      Copyright (c) 2018-2025, Laputa IOT All rights reserved.
+  ~
+  ~  Redistribution and use in source and binary forms, with or without
+  ~  modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice,
+  ~  this list of conditions and the following disclaimer.
+  ~  Redistributions in binary form must reproduce the above copyright
+  ~  notice, this list of conditions and the following disclaimer in the
+  ~  documentation and/or other materials provided with the distribution.
+  ~  Neither the name of the www.laputa-iot.com developer nor the names of its
+  ~  contributors may be used to endorse or promote products derived from
+  ~  this software without specific prior written permission.
+  ~  Author: SommerJiang (sommer_jiang@163.com)
+  ~
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laputa.iot.msg.mapper.MailMapper">
+
+    <resultMap id="mailMap" type="com.laputa.iot.msg.api.entity.Mail">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="remark" column="remark"/>
+        <result property="isStar" column="is_star"/>
+        <result property="senderName" column="sender_name"/>
+        <result property="receiveUser" column="receive_user"/>
+        <result property="receiveName" column="receive_name"/>
+        <result property="receiveDate" column="receive_date"/>
+        <result property="readDate" column="read_date"/>
+        <result property="status" column="status"/>
+        <result property="fileCount" column="file_count"/>
+        <result property="contentSize" column="content_size"/>
+        <result property="isAudio" column="is_audio"/>
+        <result property="isDraft" column="is_draft"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="tenantId" column="tenant_id"/>
+    </resultMap>
+</mapper>

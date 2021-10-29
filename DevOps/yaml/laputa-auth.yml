@@ -1,0 +1,19 @@
+version: '2'
+services:
+  #授权服务
+  laputa-auth:
+    image: ../../laputa-auth
+    container_name: laputa-auth
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - laputa
+    environment:
+      - COMPOSE_PROJECT_NAME=laputa-auth
+    volumes:
+      - ../log/:/logs/
+
+networks:
+  laputa:
+    external: true

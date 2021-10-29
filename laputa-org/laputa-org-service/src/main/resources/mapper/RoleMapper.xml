@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~
+  ~      Copyright (c) 2018-2025, Laputa IOT All rights reserved.
+  ~
+  ~  Redistribution and use in source and binary forms, with or without
+  ~  modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice,
+  ~  this list of conditions and the following disclaimer.
+  ~  Redistributions in binary form must reproduce the above copyright
+  ~  notice, this list of conditions and the following disclaimer in the
+  ~  documentation and/or other materials provided with the distribution.
+  ~  Neither the name of the www.laputa-iot.com developer nor the names of its
+  ~  contributors may be used to endorse or promote products derived from
+  ~  this software without specific prior written permission.
+  ~  Author: SommerJiang (sommer_jiang@163.com)
+  ~
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laputa.iot.org.mapper.RoleMapper">
+
+  <resultMap id="roleMap" type="com.laputa.iot.org.api.entity.Role">
+                  <id property="id" column="id"/>
+                        <result property="companyId" column="company_id"/>
+                        <result property="positionId" column="position_id"/>
+                        <result property="name" column="name"/>
+                        <result property="sn" column="sn"/>
+                        <result property="note" column="note"/>
+                        <result property="type" column="type"/>
+                        <result property="orderNo" column="order_no"/>
+                        <result property="deleted" column="deleted"/>
+                        <result property="version" column="version"/>
+                        <result property="createUser" column="create_user"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateUser" column="update_user"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="tenantId" column="tenant_id"/>
+            </resultMap>
+
+
+      <select id="getRolesByStaffId" resultType="com.laputa.iot.org.api.entity.Role">
+            SELECT
+                  t1.*
+            FROM
+                  org_role t1
+                        INNER JOIN org_staff_role t2 ON t1.id = t2.role_id
+            WHERE
+                  t2.staff_id = #{staffId}
+      </select>
+
+
+      <select id="getPagerModel" parameterType="com.laputa.iot.org.api.entity.Role" resultMap="roleMap">
+            SELECT
+            t_role.*, t2.name AS company_name
+            FROM
+            org_role t_role
+            INNER JOIN org_company t2 ON t_role.company_id = t2.id
+            where t_role.deleted = 0
+            <if test="role.keyword!=null and role.keyword!=''">
+                  and  t_role.name like concat('%', #{role.keyword}, '%') or t_role.sn like concat('%', #{role.keyword}, '%')
+            </if>
+            <if test="role.companyId!=null and  role.companyId !=0 ">
+                  and t_role.company_id=#{role.companyId}
+            </if>
+            <if test="role.companyId!=null and  role.staffId!=0">
+                  and NOT EXISTS (
+                  SELECT
+                  id
+                  FROM
+                  org_staff_role
+                  WHERE
+                  role_id = t_role.id
+                  AND staff_id = #{role.staffId}
+                  )
+            </if>
+            order by t_role.order_no asc
+      </select>
+</mapper>

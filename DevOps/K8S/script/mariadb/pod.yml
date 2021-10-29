@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+  labels:
+    app: mariadb
+
+spec:
+  serviceName: mariadb
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+      annotations:
+        pod.beta.kubernetes.io/initialized: "true"
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                      - mariadb
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: mariadb
+          image: mariadb:10.4
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 450m
+              memory: 2048Mi
+            requests:
+              cpu: 400m
+              memory: 2048Mi
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: vol-data
+              mountPath: /var/lib/mysql
+            - name: vol-conf
+              mountPath: /etc/mysql/mariadb.conf.d
+      volumes:
+        - name: vol-data
+          hostPath:
+            path: /www/k8s/foxdev/mariadb/data
+            type: Directory
+        - name: vol-conf
+          hostPath:
+              path: /www/k8s/foxdev/mariadb/mariadb.conf.d
+              type: Directory

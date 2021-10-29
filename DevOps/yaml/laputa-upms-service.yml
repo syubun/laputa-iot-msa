@@ -1,0 +1,21 @@
+version: '2'
+services:
+  #Laputa iot 基础服务
+  laputa-upms-service:
+    build:
+      context: ../../laputa-upms/laputa-upms-service
+    container_name: laputa-upms-service
+    restart: always
+    ports:
+      - 4001:4001
+    networks:
+      - laputa
+    environment:
+      - COMPOSE_PROJECT_NAME=laputa-upms-service
+    volumes:
+      - ../log/:/logs/
+      - ../config/laputa-upms-service/:/config/
+      
+networks:
+  laputa:
+    external: true

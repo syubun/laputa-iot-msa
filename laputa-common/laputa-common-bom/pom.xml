@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>group.springframework</groupId>
+		<artifactId>spring-cloud-dependencies-parent</artifactId>
+		<version>2020.0.3</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>com.laputa</groupId>
+	<artifactId>laputa-common-bom</artifactId>
+	<packaging>pom</packaging>
+	<version>1.1.0</version>
+	<description>Laputa IOT 公共版本控制</description>
+
+	<properties>
+		<laputa.version>1.1.0</laputa.version>
+		<mybatis-plus.version>3.4.3</mybatis-plus.version>
+		<dynamic-ds.version>3.4.0</dynamic-ds.version>
+		<druid.version>1.2.5</druid.version>
+		<mysql.connector.version>8.0.23</mysql.connector.version>
+		<swagger.core.version>1.5.22</swagger.core.version>
+		<mp.weixin.version>3.9.0</mp.weixin.version>
+		<ijpay.version>2.7.0</ijpay.version>
+		<groovy.version>3.0.3</groovy.version>
+		<jsoup.version>1.13.1</jsoup.version>
+		<security.oauth.version>2.3.6.RELEASE</security.oauth.version>
+		<fastjson.version>1.2.75</fastjson.version>
+		<xxl.job.version>2.2.0</xxl.job.version>
+		<aliyun.version>3.0.52.ALL</aliyun.version>
+		<aws.version>1.11.543</aws.version>
+		<dozer.version>6.5.0</dozer.version>
+		<javaformat.plugin.version>0.0.23</javaformat.plugin.version>
+		<docker.plugin.version>0.33.0</docker.plugin.version>
+		<cloud.plugin.version>1.0.0</cloud.plugin.version>
+		<j2cache.version>2.8.0-release</j2cache.version>
+		<jjwt.version>0.7.0</jjwt.version>
+		<mybatisplus.version>3.2.0</mybatisplus.version>
+		<guava.version>25.1-jre</guava.version>
+		<spring-data-elasticsearch.version>3.2.7.RELEASE</spring-data-elasticsearch.version>
+		<elasticsearch.version>7.8.0</elasticsearch.version>
+		<commons-beanutils.version>1.9.4</commons-beanutils.version>
+		<logstash-logback.version>5.3</logstash-logback.version>
+		<minio.version>8.2.2</minio.version>
+		<fastdfs-client.version>1.27.2</fastdfs-client.version>
+		<flowable.version>6.6.0</flowable.version>
+		<commons.io.version>2.6</commons.io.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-core</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-data</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-gateway</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-gray</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-datasource</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-job</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-log</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-oss</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-security</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-sentinel</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-feign</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-sequence</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-swagger</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-transaction</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-test</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-xss</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-upms-api</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-msg-api</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-log-api</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-workflow-api</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-device-api</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-im-api</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-org-api</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+
+			<!--upms api、model 模块-->
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-cms-api</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-mqtt</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.laputa</groupId>
+				<artifactId>laputa-common-minio</artifactId>
+				<version>${laputa.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>${jjwt.version}</version>
+			</dependency>
+
+			<!-- 对象转换 -->
+			<dependency>
+				<groupId>com.github.dozermapper</groupId>
+				<artifactId>dozer-spring-boot-starter</artifactId>
+				<version>${dozer.version}</version>
+			</dependency>
+			<!--mybatis plus extension,包含了mybatis plus core-->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-extension</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+			<!--mybatis-->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus</artifactId>
+				<version>${mybatisplus.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+				<version>${dynamic-ds.version}</version>
+			</dependency>
+			<!-- druid 连接池 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid-spring-boot-starter</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+			<!--mysql 驱动-->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.connector.version}</version>
+			</dependency>
+			<!--fastjson-->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+			<!--swagger 最新依赖内置版本-->
+			<dependency>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-models</artifactId>
+				<version>${swagger.core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-annotations</artifactId>
+				<version>${swagger.core.version}</version>
+			</dependency>
+			<!--微信依赖-->
+			<dependency>
+				<groupId>com.github.binarywang</groupId>
+				<artifactId>weixin-java-mp</artifactId>
+				<version>${mp.weixin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.binarywang</groupId>
+				<artifactId>weixin-java-common</artifactId>
+				<version>${mp.weixin.version}</version>
+			</dependency>
+			<!--支付相关SDK-->
+			<dependency>
+				<groupId>com.github.javen205</groupId>
+				<artifactId>IJPay-WxPay</artifactId>
+				<version>${ijpay.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.javen205</groupId>
+				<artifactId>IJPay-AliPay</artifactId>
+				<version>${ijpay.version}</version>
+			</dependency>
+			<!--定义groovy 版本-->
+			<dependency>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy</artifactId>
+				<version>${groovy.version}</version>
+			</dependency>
+			<!--稳定版本，替代spring security bom内置-->
+			<dependency>
+				<groupId>org.springframework.security.oauth</groupId>
+				<artifactId>spring-security-oauth2</artifactId>
+				<version>${security.oauth.version}</version>
+			</dependency>
+			<!--jsoup html 解析组件-->
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>${jsoup.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.oschina.j2cache</groupId>
+				<artifactId>j2cache-core</artifactId>
+				<version>${j2cache.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-simple</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-elasticsearch</artifactId>
+				<version>${spring-data-elasticsearch.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>elasticsearch-rest-high-level-client</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>elasticsearch-rest-client</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.elasticsearch</groupId>
+				<artifactId>elasticsearch</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>${commons-beanutils.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons.io.version}</version>
+			</dependency>
+
+
+
+			<!--集成logstash-->
+			<dependency>
+				<groupId>net.logstash.logback</groupId>
+				<artifactId>logstash-logback-encoder</artifactId>
+				<version>${logstash-logback.version}</version>
+			</dependency>
+
+<!--			<dependency>-->
+<!--				<groupId>io.minio</groupId>-->
+<!--				<artifactId>minio</artifactId>-->
+<!--				<version>${minio.version}</version>-->
+<!--			</dependency>-->
+
+			<dependency>
+				<groupId>com.github.tobato</groupId>
+				<artifactId>fastdfs-client</artifactId>
+				<version>${fastdfs-client.version}</version>
+			</dependency>
+
+
+			<!-- 若Log4j2使用了AsyncLogger, 就需要disruptor-->
+			<!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
+			<dependency>
+				<groupId>com.lmax</groupId>
+				<artifactId>disruptor</artifactId>
+				<version>3.4.2</version>
+			</dependency>
+
+		</dependencies>
+
+
+
+	</dependencyManagement>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>aliyun-plugin</id>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

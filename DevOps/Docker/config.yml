@@ -1,0 +1,16 @@
+version: 0.1
+log:
+  level: debug
+storage:
+  oss:
+    accesskeyid: LTAIQYowl1zz8gzf
+    accesskeysecret: VphoHmcNQF8aaxpa330Re2zJLIgQX0
+    region: oss-cn-shanghai
+    bucket: sommer78
+    rootdirectory: dockers
+    secure: false
+    internal: false
+http:
+  addr: 0.0.0.0:5000
+
+

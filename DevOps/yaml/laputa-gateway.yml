@@ -1,0 +1,20 @@
+version: '2'
+services:
+  #授权服务
+  laputa-gateway:
+    build:
+      context: ../../laputa-gateway
+    container_name: laputa-gateway
+    restart: always
+    ports:
+      - 9999:9999
+    networks:
+      - laputa
+    environment:
+      - COMPOSE_PROJECT_NAME=laputa-gateway
+    volumes:
+      - ../log/:/logs/
+
+networks:
+  laputa:
+    external: true

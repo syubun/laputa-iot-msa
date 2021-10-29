@@ -1,0 +1,22 @@
+version: '2'
+services:
+  laputa-minio:
+    image: minio/minio
+    container_name: laputa-minio
+    restart: "always"
+    ports:
+      - "9090:9000"
+    environment:
+      - MINIO_DOMAIN=laputa
+      - MINIO_ACCESS_KEY=laputaiot
+      - MINIO_SECRET_KEY=laputaiot
+    command: server /data
+    volumes:
+      - ../data/minio_data:/data
+      - ./config:/root/.minio
+    networks:
+      - laputa    
+
+networks:
+  laputa:
+    external: true

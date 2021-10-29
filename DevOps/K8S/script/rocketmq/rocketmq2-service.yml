@@ -1,0 +1,29 @@
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rocketmq2
+  labels:
+    app: rocketmq2
+spec:
+  type: NodePort
+  ports:
+    - port: 9876
+      targetPort: 9876
+      nodePort: 30877
+      name: rmqser2
+    - port: 30961
+      targetPort: 30961
+      nodePort: 30961
+      name: rmqbroker2
+    - port: 30971
+      targetPort: 30971
+      nodePort: 30971
+      name: rmqbrokerslave2
+    - port: 30981
+      targetPort: 30981
+      nodePort: 30981
+      name: rmqbrokerslave22
+  selector:
+    app: rocketmq2

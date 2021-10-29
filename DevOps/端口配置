@@ -1,0 +1,10 @@
+Nacos 8848
+服务网关 9999
+AUTH 认证服务器 3000
+Spring Boot Admin 5001
+UPMS 权限管理 4001
+LOG  5009
+MSG  5010
+CODEGEN  5003
+sentinel 9006
+

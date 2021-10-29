@@ -1,0 +1,135 @@
+# 使用说明 V1.1.0
+# 1. 使用docker-compose  宿主机不需要配置host来发现
+# 2. 无需修改源码，根目录  docker-compose up 即可
+# 3. 静静等待服务启动
+
+version: '2'
+services:
+
+#  portainer:
+#    image: portainer/portainer:1.24.2
+#    container_name: portainer
+#    ports:
+#      - 9100:9000
+#      - 8100:8000
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - ../data/portainer_data/data:/data
+#      - ../data/portainer_data/public:/public
+
+  laputa-mysql:
+#    build:
+#      context: ../db
+    environment:
+      MYSQL_ROOT_PASSWORD: Laputa@123456
+    restart: always
+    container_name: laputa-mysql
+    image: mysql:8.0.23
+    # docker安全验证
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - 3306:3306
+    volumes:
+      - ../data/mysql_data:/var/lib/mysql
+      - ../config/mysql/db/:/docker-entrypoint-initdb.d/
+    command:
+      --lower_case_table_names=1
+      --max_connections=1000
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --default-authentication-plugin=mysql_native_password
+    networks:
+      - laputa
+
+  laputa-redis:
+    container_name: laputa-redis
+    image: redis:5.0.7
+    restart: always
+#    command: redis-server /usr/local/etc/redis/redis.conf
+    command: redis-server --requirepass Laputa@123456 --appendonly yes # 启动redis服务并添加密码为：laputa,并开启redis持久化配置
+    ports:
+      - 6379:6379
+    volumes:
+      - ../data/redis_data:/data
+#      - ../config/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - laputa
+
+
+  laputa-minio:
+    image: minio/minio:RELEASE.2021-03-01T04-20-55Z
+    container_name: laputa-minio
+    ports:
+      - 9000:9000
+    restart: always
+    command: server /data
+    environment:
+      MINIO_DOMAIN: laputa
+      MINIO_ROOT_USER: laputa
+      MINIO_ROOT_PASSWORD: laputa@123456 #大于等于8位
+    volumes:
+        - ../data/minio_data:/data # 映射文件路径
+        - ../config/minio-config:/root/.minio
+    networks:
+      - laputa
+
+  laputa-mqtt:
+    image: emqx/emqx:4.3.5
+    container_name: laputa-mqtt
+    environment:
+#      - EMQX_LOADED_PLUGINS="emqx_management,emqx_auth_http,emqx_dashboard"
+      - EMQX_DASHBOARD__DEFAULT_USER__LOGIN=laputa
+      - EMQX_DASHBOARD__DEFAULT_USER__PASSWORD=laputa@123456
+      - EMQX_NODE__MAX_PORTS=65535
+      - EMQX_MQTT__MAX_PACKET_SIZE=16MB
+    ports:
+      - 18083:18083
+      - 1883:1883
+      - 8080:8081
+      - 8883:8883
+    volumes:
+      - ../logs/laputa-mqtt:/opt/emqx/log
+    restart: always
+    networks:
+      - laputa
+
+#  rabbitmq:
+#    restart: always
+#    image: rabbitmq:management
+#    container_name: rabbitmq
+#    ports:
+#      - 5672:5672
+#      - 15672:15672
+#    environment:
+#      TZ: Asia/Shanghai
+#      RABBITMQ_DEFAULT_USER: admin
+#      RABBITMQ_DEFAULT_PASS: laputaiot
+#    volumes:
+#      - ../data/rabbitmq_data:/var/lib/rabbitmq/mnesia
+#    networks:
+#      - laputa
+
+  #主端口服务
+#  laputa-data:
+#    image: nginx:1.21.1
+#    container_name: laputa-data
+#    restart: always
+#    ports:
+#      - 80:80
+#      - 8600:8600
+#    networks:
+#      - laputa
+#    volumes:
+#      - ../data/laputa_data/:/home/laputa_iot/laputa_data/
+#      - ../config/laputa_data.conf:/etc/nginx/conf.d/default.conf
+
+networks:
+  laputa:
+    external: true
+
+
+
+
+
+ 

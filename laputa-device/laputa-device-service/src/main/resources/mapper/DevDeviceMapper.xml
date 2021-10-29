@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~
+  ~      Copyright (c) 2018-2025, Laputa IOT All rights reserved.
+  ~
+  ~  Redistribution and use in source and binary forms, with or without
+  ~  modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice,
+  ~  this list of conditions and the following disclaimer.
+  ~  Redistributions in binary form must reproduce the above copyright
+  ~  notice, this list of conditions and the following disclaimer in the
+  ~  documentation and/or other materials provided with the distribution.
+  ~  Neither the name of the www.laputa-iot.com developer nor the names of its
+  ~  contributors may be used to endorse or promote products derived from
+  ~  this software without specific prior written permission.
+  ~  Author: SommerJiang (sommer_jiang@163.com)
+  ~
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laputa.iot.device.mapper.DevDeviceMapper">
+
+  <resultMap id="devDeviceMap" type="com.laputa.iot.device.entity.DevDevice">
+                  <id property="id" column="id"/>
+                        <result property="deviceName" column="device_name"/>
+                        <result property="deviceCode" column="device_code"/>
+                        <result property="deviceType" column="device_type"/>
+                        <result property="deviceStatus" column="device_status"/>
+                        <result property="deviceQrcode" column="device_qrcode"/>
+                        <result property="address" column="address"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="pic" column="pic"/>
+                        <result property="deleted" column="deleted"/>
+                        <result property="version" column="version"/>
+                        <result property="description" column="description"/>
+                        <result property="longitude" column="longitude"/>
+                        <result property="latitude" column="latitude"/>
+            </resultMap>
+</mapper>

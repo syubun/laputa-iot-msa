@@ -1,0 +1,18 @@
+version: '2'
+services:
+  #主端口服务
+  laputa-data:
+    image: nginx:1.21.1
+    container_name: laputa-data
+    restart: always
+    ports:
+      - 80:80  
+      - 8600:8600
+    networks:
+      - laputa
+    volumes:
+      - ../data/laputa_data/:/home/laputa_iot/laputa_data/
+      - ../config/laputa_data.conf:/etc/nginx/conf.d/default.conf
+networks:
+  laputa:
+    external: true

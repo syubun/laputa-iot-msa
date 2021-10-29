@@ -1,0 +1,52 @@
+div[class*='ui-tooltip-kisbpm-'] {
+    background-color: #ffffff;
+    border-color: #c5c5c5;
+    color: #4a4a4a;
+    font-family: Verdana;
+    font-size: 12px;
+}
+
+div[class*='ui-tooltip-kisbpm-'] .qtip-content {
+  color: #4a4a4a;
+  background-color: #ffffff;
+  font-family: Verdana;
+  font-size: 12px;
+}
+
+.ui-tooltip-kisbpm-bpmn .qtip-titlebar {
+  color: #FFFFFF;
+  font-size: 12px;
+  background: #2B414F;
+}
+
+.ui-tooltip-kisbpm-bpmn .qtip-tip {
+  background-color: #2B414F;
+}
+
+.loading-message {
+    display: inline-block;
+    min-width: 125px;
+    padding: 10px;
+    margin: 0 auto;
+    color: #000 !important;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+}
+.loading-message > span {
+    line-height: 20px;
+    vertical-align: middle;
+}
+.loading-message.loading-message-boxed {
+    border: 1px solid #ddd;
+    background-color: #eee;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+}

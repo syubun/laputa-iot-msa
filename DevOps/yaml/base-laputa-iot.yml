@@ -1,0 +1,49 @@
+# 使用说明 V1.1.0
+# 1. 使用docker-compose  宿主机不需要配置host来发现
+# 2. 无需修改源码，根目录  docker-compose up 即可
+# 3. 静静等待服务启动
+
+version: '2'
+services:
+
+   
+  laputa-register:
+    build:
+      context: ../../laputa-register
+    restart: always
+    container_name: laputa-register
+    image: laputa-register
+    volumes:
+      - ../DevOps/logs/nacos/:/home/nacos/logs
+    ports:
+      - 8848:8848
+    networks:
+      - laputa
+
+  laputa-monitor:
+    build:
+      context: ../../laputa-support/laputa-monitor
+    restart: always
+    image: laputa-monitor
+    container_name: laputa-monitor
+    depends_on:
+      - laputa-register
+    ports:
+      - 5001:5001
+    networks:
+      - laputa
+
+  laputa-sentinel:
+    build:
+      context: ../../laputa-support/laputa-sentinel-dashboard
+    restart: always
+    image: laputa-sentinel
+    container_name: laputa-sentinel
+    ports:
+      - 5020:5020
+    networks:
+      - laputa
+
+networks:
+  laputa:
+    external: true

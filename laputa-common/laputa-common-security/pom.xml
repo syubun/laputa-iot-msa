@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~      Copyright (c) 2018-2025, Laputa IOT All rights reserved.
+  ~
+  ~   Redistribution and use in source and binary forms, with or without
+  ~   modification, are permitted provided that the following conditions are met:
+  ~
+  ~   Redistributions of source code must retain the above copyright notice,
+  ~   this list of conditions and the following disclaimer.
+  ~   Redistributions in binary form must reproduce the above copyright
+  ~   notice, this list of conditions and the following disclaimer in the
+  ~   documentation and/or other materials provided with the distribution.
+  ~   Neither the name of the www.laputa-iot.com developer nor the names of its
+  ~   contributors may be used to endorse or promote products derived from
+  ~   this software without specific prior written permission.
+  ~   Author: SommerJiang (sommer_jiang@163.com)
+  ~
+  -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.laputa</groupId>
+		<artifactId>laputa-common</artifactId>
+		<version>1.1.0</version>
+	</parent>
+
+	<artifactId>laputa-common-security</artifactId>
+	<packaging>jar</packaging>
+	<name>${project.artifactId}</name>
+	<description>Laputa IOT 安全工具类</description>
+
+
+	<dependencies>
+		<!--工具类核心包-->
+		<dependency>
+			<groupId>com.laputa</groupId>
+			<artifactId>laputa-common-core</artifactId>
+		</dependency>
+		<!--安全模块-->
+		<dependency>
+			<groupId>org.springframework.security.oauth.boot</groupId>
+			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-starter-security</artifactId>-->
+
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-starter-oauth2</artifactId>-->
+
+<!--		</dependency>-->
+
+
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-starter-oauth2</artifactId>-->
+<!--		</dependency>-->
+
+		<!--feign-->
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-core</artifactId>
+		</dependency>
+		<!--aop-->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+		</dependency>
+		<!--缓存依赖-->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+		</dependency>
+		<!--upms fegin 调用相关工具类-->
+        <dependency>
+            <groupId>com.laputa</groupId>
+            <artifactId>laputa-upms-api</artifactId>
+        </dependency>
+
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
+    </dependencies>
+</project>

@@ -1,0 +1,127 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        #Query A 参数有A就行，Query B,C 参数B的值为C即可
+        #实现针对于“http://localhost:88/zsy0216?url=baidu”，转发到“https://www.github.com/zsy0216”，
+        #- id: github_route
+        #  uri: https://www.github.com
+        #  predicates:
+        #    - Query=url,github
+
+        - id: laputa-upms-service
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: "#{@remoteAddrKeyResolver}"
+                redis-rate-limiter.burstCapacity: 1000
+                redis-rate-limiter.replenishRate: 1000
+          uri: lb://laputa-upms-service
+          routeName: 通用权限模块
+          predicates:
+            - Path=/upms/**
+          order: 1
+        - id: laputa-oa-platform
+          uri: lb://laputa-oa-platform
+          routeName: 工作流管理模块
+          predicates:
+            - Path=/act/**
+          order: 3
+        - id: laputa-log-service
+          uri: lb://laputa-log-service
+          routeName: 日志管理服务
+          predicates:
+            - Path=/log/**
+          order: 2
+        - id: laputa-auth
+          filters:
+            - ValidateCodeGatewayFilter
+            - PasswordDecoderFilter
+          uri: lb://laputa-auth
+          routeName: 认证中心
+          predicates:
+            - Path=/auth/**
+          order: 1
+        - id: laputa-codegen
+          uri: lb://laputa-codegen
+          routeName: 代码生成模块
+          predicates:
+            - Path=/gen/**
+          order: 0
+        - id: laputa-daemon-job
+          uri: lb://laputa-daemon-job
+          routeName: quartz定时任务模块
+          predicates:
+            - Path=/job/**
+          order: 0
+        - id: laputa-tx-manager
+          uri: lb://laputa-tx-manager
+          routeName: 分布式事务模块
+          predicates:
+            - Path=/tx/**
+          order: 0
+
+        - id: laputa-oa-platform-ws-1
+          uri: lb://laputa-oa-platform
+          routeName: 工作流长链接ws路由注册
+          predicates:
+            - Path=/act/ws/info/**
+          order: 0
+        - id: laputa-oa-platform-ws-2
+          filters: [ ]
+          uri: lb:ws://laputa-oa-platform
+          routeName: 工作流链接WS通讯
+          predicates:
+            - Path=/act/ws/**
+          order: 100
+        - id: laputa-mp-platform
+          uri: lb://laputa-mp-platform
+          routeName: 微信公众号管理
+          predicates:
+            - Path=/mp/**
+          order: 0
+        - id: laputa-pay-platform
+          uri: lb://laputa-pay-platform
+          routeName: 支付管理
+          predicates:
+            - Path=/pay/**
+          order: 0
+        - id: laputa-monitor
+          uri: lb://laputa-monitor
+          routeName: 监控管理
+          predicates:
+            - Path=/monitor/**
+          order: 0
+        - id: laputa-msg-service
+          uri: lb://laputa-msg-service
+          routeName: 消息服务
+          predicates:
+            - Path=/msg/**
+          order: 10
+        - id: laputa-msg-service-ws-resg
+          uri: lb://laputa-msg-service
+          routeName: 消息WS路由注册
+          predicates:
+            - Path=/msg/ws/info/**
+          order: 101
+        - id: laputa-msg-service-ws
+          uri: lb:ws://laputa-msg-service
+          routeName: 消息WS通讯
+          predicates:
+            - Path=/msg/ws/**
+          order: 102
+        - id: laputa-file
+          uri: lb://laputa-file
+          routeName: 通用文件处理
+          predicates:
+            - Path=/file/**
+        - id: laputa-workflow-service
+          uri: lb://laputa-workflow-service
+          routeName: 工作流程服务
+          predicates:
+            - Path=/workflow/**
+        - id: laputa-org-service
+          uri: lb://laputa-org-service
+          routeName: 公司组织管理服务
+          predicates:
+            - Path=/org/**

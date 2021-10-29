@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~
+  ~      Copyright (c) 2018-2025, Laputa IOT All rights reserved.
+  ~
+  ~  Redistribution and use in source and binary forms, with or without
+  ~  modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice,
+  ~  this list of conditions and the following disclaimer.
+  ~  Redistributions in binary form must reproduce the above copyright
+  ~  notice, this list of conditions and the following disclaimer in the
+  ~  documentation and/or other materials provided with the distribution.
+  ~  Neither the name of the www.laputa-iot.com developer nor the names of its
+  ~  contributors may be used to endorse or promote products derived from
+  ~  this software without specific prior written permission.
+  ~  Author: SommerJiang (sommer_jiang@163.com)
+  ~
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laputa.iot.org.mapper.StaffMapper">
+
+  <resultMap id="staffMap" type="com.laputa.iot.org.api.entity.Staff">
+                  <id property="id" column="id"/>
+                        <result property="code" column="code"/>
+                        <result property="name" column="name"/>
+                        <result property="positionCode" column="position_code"/>
+                        <result property="jobGradeCode" column="job_grade_code"/>
+                        <result property="leaderCode" column="leader_code"/>
+                        <result property="avatar" column="avatar"/>
+                        <result property="mobile" column="mobile"/>
+                        <result property="email" column="email"/>
+                        <result property="companyId" column="company_id"/>
+                        <result property="companyName" column="company_name"/>
+                        <result property="deptId" column="dept_id"/>
+                        <result property="deptName" column="dept_name"/>
+                        <result property="status" column="status"/>
+                        <result property="sex" column="sex"/>
+                        <result property="leaveDate" column="leave_date"/>
+                        <result property="address" column="address"/>
+                        <result property="fax" column="fax"/>
+                        <result property="userId" column="user_id"/>
+                        <result property="deleted" column="deleted"/>
+                        <result property="version" column="version"/>
+                        <result property="createUser" column="create_user"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateUser" column="update_user"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="tenantId" column="tenant_id"/>
+            </resultMap>
+
+
+      <select id="getPagerModel" resultType="com.laputa.iot.org.api.entity.Staff">
+            SELECT distinct
+            s1.*, s2.NAME AS leader_name,j1.`name` as job_grade_name, p1.code as position_name
+            FROM
+            org_staff s1
+            LEFT JOIN org_staff s2 ON s1.leader_code = s2.`code`
+            LEFT JOIN org_job_grade j1 on s1.job_grade_code=j1.`code`
+            LEFT JOIN org_position_info p1 on s1.position_code=p1.`code`
+            where s1.deleted=0
+            <if test="staff.keyword!=null and staff.keyword!=''">
+                  and (s1.name like concat('%', #{staff.keyword}, '%')
+                           or s1.code like concat('%', #{staff.keyword},'%')
+                  or s1.mobile like concat('%', #{staff.keyword},'%')
+                  or s1.email like concat('%', #{staff.keyword},'%')
+                      )
+            </if>
+            <if test="staff.companyIds!=null and staff.companyIds.size>0">
+                  and s1.company_id in
+                  <foreach collection="staff.companyIds" item="item" index="index" open="("
+                           separator="," close=")">
+                        #{item}
+                  </foreach>
+            </if>
+            <if test="staff.companyId!=null and staff.companyId != ''">
+                  and s1.company_id = #{staff.companyId}
+            </if>
+            <if test="staff.deptId!=null and staff.deptId != ''">
+                  and s1.dept_id = #{staff.deptId}
+            </if>
+            <if test="staff.deptIds!=null and staff.deptIds.size>0">
+                  and s1.dept_id in
+                  <foreach collection="staff.deptIds" item="item" index="index" open="("
+                           separator="," close=")">
+                        #{item}
+                  </foreach>
+            </if>
+            order by s1.code asc
+      </select>
+</mapper>

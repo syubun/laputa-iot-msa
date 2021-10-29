@@ -1,0 +1,9 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.laputa.iot.common.security.component.LaputaTokenEnhancer,\
+  com.laputa.iot.common.security.component.LaputaSecurityInnerAspect,\
+  com.laputa.iot.common.security.service.LaputaUserDetailsServiceImpl,\
+  com.laputa.iot.common.security.serializer.LaputaTokenStoreAutoConfiguration,\
+  com.laputa.iot.common.security.listener.AuthenticationFailureEventListener,\
+  com.laputa.iot.common.security.listener.AuthenticationSuccessEventListener,\
+  com.laputa.iot.common.security.listener.AuthenticationLogoutSuccessEventListener
+

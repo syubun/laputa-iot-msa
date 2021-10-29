@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>laputa-log</artifactId>
+        <groupId>com.laputa</groupId>
+        <version>1.1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>laputa-log-service</artifactId>
+    <name>${project.artifactId}</name>
+    <packaging>jar</packaging>
+    <description>Laputa IOT 日志处理服务</description>
+
+    <dependencies>
+        <!--log api、model 模块-->
+        <dependency>
+            <groupId>com.laputa</groupId>
+            <artifactId>laputa-log-api</artifactId>
+        </dependency>
+        <!--日志处理-->
+        <dependency>
+            <groupId>com.laputa</groupId>
+            <artifactId>laputa-common-log</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.laputa</groupId>
+            <artifactId>laputa-common-data</artifactId>
+        </dependency>
+
+        <!--注册中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!--配置中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!--spring security 、oauth、jwt依赖-->
+        <dependency>
+            <groupId>com.laputa</groupId>
+            <artifactId>laputa-common-security</artifactId>
+        </dependency>
+
+        <!--sentinel 依赖-->
+        <dependency>
+            <groupId>com.laputa</groupId>
+            <artifactId>laputa-common-sentinel</artifactId>
+        </dependency>
+
+        <!--mybatis-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <!-- druid 连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+        <!--数据库-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!--web 模块-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--undertow容器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

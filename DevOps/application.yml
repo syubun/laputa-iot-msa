@@ -1,0 +1,52 @@
+## spring security 配置
+security:
+  oauth2:
+    client:
+      client-id: laputa
+      client-secret: laputa
+      scope: server
+# 数据源
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: ${MYSQL_USER:root}
+      password: ${MYSQL_PWD:Laputa@123456}
+      url: jdbc:mysql://${MYSQL_HOST:laputa-mysql}:${MYSQL_PORT:3306}/${MYSQL_DB:laputa_iot_upms}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
+  resources:
+    static-locations: classpath:/static/,classpath:/views/
+
+laputa:
+  tenant:
+    column: tenant_id
+    tables:
+      - sys_file
+  file-server:
+    type: s3
+    #fdfs:
+    #  web-url: ${zlt.fdfs.web-url}
+    s3:
+      access-key: laputa
+      accessKeySecret: laputa@123456
+      endpoint: laputa-minio:9000
+      bucketName: laputa
+
+
+# 文件系统 (提供测试环境，不要乱传)
+
+oss:
+  endpoint: laputa-minio:9000
+  access-key: laputa
+  secret-key: laputa@123456
+  bucket-name: laputa
+
+minio:
+  url:  http://laputa-minio:9000
+  accessKey: laputa
+  secretKey: laputa@123456
+#fastDFS配置
+#fdfs:
+#  soTimeout: 1500
+#  connectTimeout: 600
+#  trackerList: ${zlt.fdfs.trackerList}

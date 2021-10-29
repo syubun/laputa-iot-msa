@@ -1,0 +1,33 @@
+server:
+  port: 5008
+
+laputa:
+  nacos:
+    ip: @pom.nacos.ip@
+    port: @pom.nacos.port@
+    namespace: @pom.nacos.namespace@
+#  file-server:
+#    type: s3
+#    s3:
+#      access-key: laputa
+#      accessKeySecret: laputa@123456
+#      endpoint: laputa-minio:9000
+#      bucketName: laputa
+
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:laputa-register}:${NACOS_PORT:8848}
+        namespace: ${laputa.nacos.namespace}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${laputa.nacos.namespace}
+        file-extension: yml
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+  profiles:
+    active: @profiles.active@
+

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+
+  name: hub-ui
+  labels:
+    app: hub-ui
+spec:
+  serviceName: hub-ui
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hub-ui
+  template:
+    metadata:
+      labels:
+        app: hub-ui
+    spec:
+      containers:
+        - name: hub-ui
+          image: hyper/docker-registry-web
+          resources:
+            limits:
+              cpu: 400m
+              memory: 768Mi
+            requests:
+              cpu: 400m
+              memory: 768Mi
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+#            - name: REGISTRY_URL
+#              value: http://hub-0.hub.default.svc.cluster.local:5000/v2
+#            - name: REGISTRY_NAME
+#              value: http://192.168.0.254:5000
+#            - name: REGISTRY_READONLY
+#              value: "false"
+#            - name: REGISTRY_STORAGE_DELETE_ENABLED
+#              value: "true"
+          volumeMounts:
+            - name: vol-conf
+              mountPath: /conf/config.yml
+      volumes:
+        - name: vol-conf
+          hostPath:
+            path: /www/k8s/foxdev/hub/ui-conf/config.yml
+            type: File

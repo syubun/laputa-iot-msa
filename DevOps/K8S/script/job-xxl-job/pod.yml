@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: xxl-job
+  labels:
+    app: xxl-job
+
+spec:
+  serviceName: xxl-job
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xxl-job
+  template:
+    metadata:
+      labels:
+        app: xxl-job
+    spec:
+      containers:
+        - name: xxl-job
+          image: xuxueli/xxl-job-admin:2.2.0
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 450m
+              memory: 1024Mi
+            requests:
+              cpu: 400m
+              memory: 1024Mi
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+            - name: PARAMS
+              valueFrom:
+                configMapKeyRef:
+                  name: xxl-job-cm
+                  key: PARAMS
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: vol-logs
+              mountPath: /data/applogs
+      volumes:
+        - name: vol-logs
+          hostPath:
+            path: /www/k8s/foxdev/job-xxl-job/logs
+            type: Directory

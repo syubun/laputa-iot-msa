@@ -1,0 +1,1 @@
+docker run -d --name emqx --privileged=true --restart=always -p 18083:18083 -p 1883:1883 -p 8085:8085 -p 8083:8083 -p 8084:8084 -p 8883:8883 -v /web/EMQX/connf/emqx_auth_mysql.conf:/opt/emqx/etc/plugins/emqx_auth_mysql.conf emqx/emqx:v3.2.3

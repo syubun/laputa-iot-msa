@@ -1,0 +1,21 @@
+version: '2'
+services:
+  rabbitmq:
+    restart: always
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      TZ: Asia/Shanghai
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: laputaiot
+    volumes:
+      - ../data/rabbitmq_data:/var/lib/rabbitmq/mnesia
+    networks:
+      - laputa
+      
+networks:
+  laputa:
+    external: true

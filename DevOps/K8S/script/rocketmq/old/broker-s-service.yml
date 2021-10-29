@@ -1,0 +1,26 @@
+
+
+apiVersion: v1
+kind: Service
+metadata:
+
+  name: rmqbroker-slave
+  labels:
+    app: rmqbroker-slave
+spec:
+  type: NodePort
+  ports:
+    - port: 30919
+      targetPort: 30919
+      nodePort: 30919
+      name: slave-master
+    - port: 30921
+      targetPort: 30921
+      nodePort: 30921
+      name: broker-listen
+    - port: 30922
+      targetPort: 30922
+      nodePort: 30922
+      name: ha-service
+  selector:
+    app: rmqbroker-slave

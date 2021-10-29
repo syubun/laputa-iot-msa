@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job version="11.1">
+<exportjob>
+<passwords isencoded="yes" />
+<source>
+<host>localhost</host>
+<user>root</user>
+<pwd>Obe3Og==</pwd>
+<port>3306</port>
+<compressed>1</compressed>
+<ssl>0</ssl>
+<sslauth>0</sslauth>
+<clientkey></clientkey>
+<clientcert></clientcert>
+<cacert></cacert>
+<cipher></cipher>
+<charset></charset>
+</source>
+<export>
+<databases all="no">
+<database name = "laputa_iot_upms">
+<objects all="no">
+<tables all="yes">
+</tables>
+<views all="yes">
+</views>
+<procedures all="yes">
+</procedures>
+<functions all="yes">
+</functions>
+<triggers all="yes">
+</triggers>
+<events all="yes">
+</events>
+</objects>
+</database>
+</databases>
+<script compress="no" fileordir="file" timestampdir="" timestamp="no">E:\LAPUTA-IOT-PLATFORM\laputa-iot-msa\docker-compose\config\mysql\db\laputa_iot_upms.sql</script>
+</export>
+<options>
+<createdb>yes</createdb>
+<usedb>yes</usedb>
+<dropobjects>yes</dropobjects>
+<ignoredefiner>no</ignoredefiner>
+<bulkinsert>yes</bulkinsert>
+<completeinsert>no</completeinsert>
+<insertdelayed>no</insertdelayed>
+<flushlogs>no</flushlogs>
+<flushmaster>no</flushmaster>
+<flushslave>no</flushslave>
+<locktableread>no</locktableread>
+<singletransaction>no</singletransaction>
+<disablekeys>no</disablekeys>
+<locktablewrite>no</locktablewrite>
+<fkchecks>yes</fkchecks>
+<autocommit>no</autocommit>
+<usecharset>utf8mb4</usecharset>
+<bulksize>0</bulksize>
+<appendtofile>no</appendtofile>
+</options>
+<abortonerror>no</abortonerror>
+<sendreport send="no" /></exportjob>
+</job>

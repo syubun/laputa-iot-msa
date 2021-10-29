@@ -1,0 +1,62 @@
+#server:
+#  port: 8081
+#spring:
+#  profiles:
+#    active: dev
+#  application:
+#    name: laputa-device-service
+#  main:
+#    allow-bean-definition-overriding: true
+laputa:
+  mqtt:
+    service: laputa-mqtt
+
+mqtt:
+  config:
+    channel1:
+      consumer-enable: true
+      producer-enable: true
+      url: [tcp://laputa-mqtt:1883]
+      topics: [dev/#, devregister]
+      qos: [1, 0]
+      username: laputa
+      password: laputa@123456
+      timeout: 60
+      kep-alive-interval: 60
+      async: true
+      client-id-append-ip: true
+      consumer-client-id: consumer_client_test1
+      producer-client-id: producer_client_test1
+      consumer-will:
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "consumer_client_test1"}'
+        retained: false
+      producer-will:
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "producer_client_test1"}'
+        retained: false
+    channel2:
+      url: [tcp://laputa-mqtt:1883]
+      topics: [topic3, topic4]
+      qos: [1, 0]
+      username: laputa
+      password: laputa@123456
+      timeout: 60
+      kep-alive-interval: 60
+      async: true
+      client-id-append-ip: false
+      consumer-client-id: consumer_client_test2
+      producer-client-id: producer_client_test2
+      consumer-will:
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "consumer_client_test2"}'
+        retained: false
+      producer-will:
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "producer_client_test2"}'
+        retained: false
+

@@ -1,0 +1,183 @@
+# 使用说明 V1.1.0
+# 1. 使用docker-compose  宿主机不需要配置host来发现
+# 2. 无需修改源码，根目录  docker-compose up 即可
+# 3. 静静等待服务启动
+
+version: '2'
+services:
+
+  laputa-mysql:
+#    build:
+#      context: docker-compose/db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    container_name: laputa-mysql
+    image: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker-compose/data/mysql-data:/var/lib/mysql
+      - ./docker-compose/config/mysql/db/:/docker-entrypoint-initdb.d/
+    command:
+      --lower_case_table_names=1
+      --max_connections=1000
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --default-authentication-plugin=mysql_native_password
+
+
+  laputa-redis:
+    container_name: laputa-redis
+    image: redis:5.0.7
+    restart: always
+    ports:
+      - 6379:6379
+
+
+  laputa-minio:
+    image: minio/minio
+    container_name: laputa-minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    restart: always
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: laputa
+      MINIO_ROOT_PASSWORD: laputa@123456 #大于等于8位
+    volumes:
+        - ./docker-compose/data/minio-data:/data # 映射文件路径
+
+
+  laputa-register:
+    build:
+      context: ./laputa-register
+    restart: always
+    container_name: laputa-register
+    image: laputa-register
+    depends_on:
+      - laputa-mysql
+    ports:
+      - 8848:8848
+
+  laputa-upms-service:
+    build:
+      context: ./laputa-upms/laputa-upms-service
+    restart: always
+    container_name: laputa-upms-service
+    depends_on:
+      - laputa-register
+    image: laputa-upms-service
+
+  laputa-gateway:
+    build:
+      context: ./laputa-gateway
+    restart: always
+    container_name: laputa-gateway
+    image: laputa-gateway
+    depends_on:
+      - laputa-upms-service
+    ports:
+      - 9999:9999
+
+
+  laputa-auth:
+    build:
+      context: ./laputa-auth
+    restart: always
+    container_name: laputa-auth
+    image: laputa-auth
+    depends_on:
+      - laputa-upms-service
+
+
+
+
+
+  laputa-monitor:
+    build:
+      context: ./laputa-visual/laputa-monitor
+    restart: always
+    image: laputa-monitor
+    container_name: laputa-monitor
+    depends_on:
+      - laputa-register
+    ports:
+      - 5001:5001
+
+
+  laputa-daemon-quartz:
+    build:
+      context: ./laputa-visual/laputa-daemon-quartz
+    restart: always
+    image: laputa-daemon-quartz
+    container_name: laputa-daemon-quartz
+
+
+
+  laputa-codegen:
+    build:
+      context: ./laputa-visual/laputa-codegen
+    restart: always
+    image: laputa-codegen
+    container_name: laputa-codegen
+
+
+  laputa-mp-platform:
+    build:
+      context: ./laputa-third/laputa-mp-platform
+    restart: always
+    image: laputa-mp-platform
+    container_name: laputa-mp-platform
+
+
+  laputa-pay-platform:
+    build:
+      context: ./laputa-third/laputa-pay-platform
+    restart: always
+    image: laputa-pay-platform
+    container_name: laputa-pay-platform
+
+
+  laputa-oa-platform:
+    build:
+      context: ./laputa-third/laputa-oa-platform
+    restart: always
+    image: laputa-oa-platform
+    container_name: laputa-oa-platform
+
+
+  laputa-bi-platform:
+    build:
+      context: ./laputa-third/laputa-bi-platform
+    restart: always
+    image: laputa-bi-platform
+    container_name: laputa-bi-platform
+    ports:
+      - 5006:5006
+
+
+  laputa-tx-manager:
+    build:
+      context: ./laputa-visual/laputa-tx-manager
+    restart: always
+    image: laputa-tx-manager
+    container_name: laputa-tx-manager
+
+    ports:
+      - 5004:5004
+      - 9998:9998
+
+  laputa-sentinel:
+    build:
+      context: ./laputa-visual/laputa-sentinel-dashboard
+    restart: always
+    image: laputa-sentinel
+    container_name: laputa-sentinel
+    ports:
+      - 5020:5020
+
+#networks:
+#  laputa:
+#    driver: bridge

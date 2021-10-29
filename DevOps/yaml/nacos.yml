@@ -1,0 +1,20 @@
+version: '2'
+services:
+  nacos:
+    image: nacos/nacos-server
+    container_name: laputa-register
+    env_file:
+      - nacos/nacos-config.env
+    volumes:
+      - ../logs/nacos/:/home/nacos/logs
+      - ./nacos/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - "8848:8848"
+      - "9555:9555"
+    restart: always
+    networks:
+      - laputa
+      
+networks:
+  laputa:
+    external: true

@@ -1,0 +1,19 @@
+version: '3'
+services:
+  #授权服务
+  mogu_mointor:
+    image: registry.cn-shenzhen.aliyuncs.com/mogublog/laputa-monitor:latest
+    container_name: laputa-monitor
+    restart: always
+    ports:
+      - 8606:8606
+    networks:
+      - laputa
+    environment:
+      - COMPOSE_PROJECT_NAME=laputa-monitor
+    volumes:
+      - ../log/:/logs/
+      - ../config/laputa-monitor/:/config/
+networks:
+  laputa:
+    external: true

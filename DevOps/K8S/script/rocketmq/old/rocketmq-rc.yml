@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rocketmq
+  labels:
+    app: rocketmq
+
+spec:
+  serviceName: rocketmq
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rocketmq
+  template:
+    metadata:
+      labels:
+        app: rocketmq
+    spec:
+      containers:
+        - name: rocketmq
+          image: foxiswho/rocketmq:4.8.0
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 450m
+              memory: 2000Mi
+            requests:
+              cpu: 400m
+              memory: 2000Mi
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+            - name: JAVA_OPT
+              value: -Duser.home=/home/rocketmq
+            - name: JAVA_OPT_EXT
+              value:  -Xmn256m
+          command: ["sh","mqnamesrv"]
+          ports:
+            - containerPort: 9876
+          volumeMounts:
+            - name: vol-logs
+              mountPath: /home/rocketmq/logs
+            - name: vol-init-d
+              mountPath: /home/rocketmq/store
+      volumes:
+        - name: vol-logs
+          hostPath:
+            path: /www/k8s/foxdev/rocketmq/logs
+            type: Directory
+        - name: vol-init-d
+          hostPath:
+            path: /www/k8s/foxdev/rocketmq/store
+            type: Directory

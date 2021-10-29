@@ -1,0 +1,79 @@
+import { BasicColumn } from '/@/components/Table';
+import { FormSchema } from '/@/components/Table';
+import { DescItem } from '/@/components/Description/index';
+
+export const columns: BasicColumn[] = [
+    #foreach ($column in $columns)
+        #if(!${column.isBase})
+        {
+            align: 'left',
+            title: '$column.comments',
+            dataIndex: '$column.lowerAttrName',
+            width: 150,
+            #if(${column.pk})
+            ifShow: false,
+            #end
+        }#if($foreach.hasNext),#end
+        #end
+    #end
+
+];
+
+
+
+export const searchFormSchema: FormSchema[] = [
+    {
+        label: '${comments}名',
+        field: 'name',
+        component: 'Input',
+        colProps: { span: 8 },
+    },
+    {
+        field: 'delete',
+        label: '状态',
+        component: 'Select',
+        componentProps: {
+            options: [
+                { label: '启用', value: '0' },
+                { label: '停用', value: '1' },
+            ],
+        },
+        colProps: { span: 8 },
+    },
+
+];
+export const descSchema: DescItem[] = [
+    #foreach ($column in $columns)
+
+        #if(!${column.isBase} )
+            {
+
+                label: '$column.comments',
+                field: '$column.lowerAttrName',
+                contentMinWidth: 100,
+                span: 1,
+            }#if($foreach.hasNext),#end
+        #end
+    #end
+
+];
+
+export const formSchema: FormSchema[] = [
+    #foreach ($column in $columns)
+
+        #if(!${column.isBase} || ${column.pk})
+        {
+            component: 'Input',
+            label: '$column.comments',
+            field: '$column.lowerAttrName',
+            required: false,
+        #if(${column.pk})
+            show: false,
+        #end
+        }#if($foreach.hasNext),#end
+        #end
+    #end
+
+
+
+];

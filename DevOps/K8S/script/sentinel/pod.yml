@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+
+  name: sentinel
+  labels:
+    app: sentinel
+spec:
+  serviceName: sentinel
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sentinel
+  template:
+    metadata:
+      labels:
+        app: sentinel
+    spec:
+      containers:
+        - name: sentinel
+          image: foxiswho/sentinel
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 450m
+              memory: 1024Mi
+            requests:
+              cpu: 400m
+              memory: 1024Mi
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+            - name: JAVA_OPT_EXT
+              value: -Dserver.servlet.session.timeout=7200
+            - name: SERVER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: sentinel-cm
+                  key: sentinel.server.host
+            - name: SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: sentinel-cm
+                  key: sentinel.server.port
+            - name: USERNAME
+              valueFrom:
+                  configMapKeyRef:
+                    name: sentinel-cm
+                    key: sentinel.auth.username
+            - name: PASSWORD
+              valueFrom:
+                  configMapKeyRef:
+                    name: sentinel-cm
+                    key: sentinel.auth.password
+          ports:
+            - containerPort: 8280
+            - containerPort: 8719
+          volumeMounts:
+            - name: vol-log
+              mountPath: /opt/logs
+      volumes:
+        - name: vol-log
+          hostPath:
+            path: /www/k8s/foxdev/sentinel/logs
+            type: Directory

@@ -1,0 +1,88 @@
+version: '3'
+
+# 单机版本
+networks:
+  ash-elasticstack:
+    driver: bridge
+
+services:
+  # Elastic-Search
+  elasticsearch:
+    image: elasticsearch:7.9.3
+    container_name: elasticsearch
+    environment:
+      - TZ=Asia/Shanghai
+      - "cluster.name=EScluster" #设置集群名称为 EScluster
+      - "discovery.type=single-node" #以单一节点模式启动
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m" #设置使用jvm内存大小
+    volumes: 
+      - ./elasticsearch/es01/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/es01/logs:/usr/share/elasticsearch/logs
+      - ./elasticsearch/es01/mydocs:/usr/share/elasticsearch/mydocs
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks: 
+      - ash-elasticstack
+  
+  # FileBeat
+  filebeat:
+    image: store/elastic/filebeat:7.9.3
+    hostname: filebeat
+    container_name: filebeat
+    build:
+      context: filebeat
+      dockerfile: filebeat/Dockerfile
+    volumes:
+#      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./filebeat/logs:/usr/share/filebeat/logs
+      - ./filebeat/mydocs:/usr/share/filebeat/mydocs
+    environment:
+      - TZ=Asia/Shanghai
+    links:
+      - logstash # 把logstash的ip记录到该容器中
+    networks: 
+      - ash-elasticstack
+
+  # LogStash
+  logstash:
+    image: logstash:7.9.3
+    hostname: logstash
+    container_name: logstash
+    volumes:
+      - ./logstash/config:/usr/share/logstash/config     # logstash 配置文件目录
+      - ./logstash/pipeline:/usr/share/logstash/pipeline # logstash 的采集与输入的配置文件目录
+      - ./logstash/mydocs:/usr/share/logstash/mydocs
+    environment:
+      - TZ=Asia/Shanghai
+      - "ES_JAVA_OPTS=-Xmx1g -Xms1g"
+    links:
+      - elasticsearch
+    # depends_on: 
+      # - elasticsearch # 在elastic-search节点01启动后再启动
+    # ports:
+      # - 5044:5044 # filebeat传递数据给logstash时默认使用的端口，据说这个ports设置可以没有
+    networks: 
+      - ash-elasticstack
+
+  # Kibana
+  kibana:
+    image: kibana:7.9.3
+    hostname: kibana
+    container_name: kibana
+    environment:
+      - TZ=Asia/Shanghai
+      - "elasticsearch.hosts=http://elasticsearch:9200" #设置访问elasticsearch的地址
+    links:
+      - elasticsearch
+    depends_on: 
+      - elasticsearch # 在elastic-search节点01启动后再启动
+    ports:
+      - 5601:5601
+    networks: 
+      - ash-elasticstack
+
+
+
+#如上内容，其他容器使用links可以将mongo容器的ip记录到该容器中, 再通过连接 mongo:27017 可以访问数据库。
+#通过depends_on来标记依赖关系, 当mongo服务启动完成后, 才会启动backend服务;

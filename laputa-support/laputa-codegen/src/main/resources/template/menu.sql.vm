@@ -1,0 +1,22 @@
+-- 该脚本不要直接执行， 注意维护菜单的父节点ID 默认 父节点1000 , 默认租户 1
+
+-- 菜单SQL
+insert into `sys_menu` ( `name`, `permission`, `component`, `alias`, `path`, `paramPath`, `parent_id`, `sort`, `type`, `title`,`icon`, `tenant_id`)
+    VALUES ('${comments}管理', NULL, '/${moduleName}/${pathName}/index', NULL, '/${pathName}', NULL, 869575493588877345, 308, 1,  'routes.manage.${moduleName}.${pathName}', 'ion:invert-mode', 1);
+
+
+
+
+
+-- 按钮父菜单ID
+set @parentId = @@identity;
+
+-- 菜单对应按钮SQL
+insert into `sys_menu` ( `parent_id`, `permission`, `type`, `sort`,  `name`, `tenant_id`)
+    SELECT @parentId, '${moduleName}_${pathName}_view', '2', '01', '${comments}查看', 1;
+insert into `sys_menu` ( `parent_id`, `permission`, `type`,  `sort`,  `name`, `tenant_id`)
+    SELECT @parentId, '${moduleName}_${pathName}_add', '2', '02', '${comments}新增', 1;
+insert into `sys_menu` ( `parent_id`, `permission`, `type`, `sort`, `name`, `tenant_id`)
+    SELECT @parentId, '${moduleName}_${pathName}_edit', '2', '03',  '${comments}修改', 1;
+insert into `sys_menu` ( `parent_id`, `permission`, `type`,  `sort`,  `name`, `tenant_id`)
+    SELECT @parentId, '${moduleName}_${pathName}_del', '2',  '04',  '${comments}删除', 1;

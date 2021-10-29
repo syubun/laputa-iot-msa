@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.laputa</groupId>
+		<artifactId>laputa-third</artifactId>
+		<version>1.1.0</version>
+	</parent>
+
+	<artifactId>laputa-pay-platform</artifactId>
+	<packaging>jar</packaging>
+
+	<description>支付平台 支持支付宝、微信</description>
+
+	<dependencies>
+		<!--注册中心客户端-->
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+		</dependency>
+		<!--配置中心客户端-->
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+		</dependency>
+		<!--mybatis-->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- druid 连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+		</dependency>
+		<!--common-->
+		<dependency>
+			<groupId>com.laputa</groupId>
+			<artifactId>laputa-common-data</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.laputa</groupId>
+			<artifactId>laputa-common-sequence</artifactId>
+		</dependency>
+		<!--灰度支持-->
+		<dependency>
+			<groupId>com.laputa</groupId>
+			<artifactId>laputa-common-gray</artifactId>
+		</dependency>
+		<!-- sentinel-->
+		<dependency>
+			<groupId>com.laputa</groupId>
+			<artifactId>laputa-common-sentinel</artifactId>
+		</dependency>
+		<!--feign 接口-->
+		<dependency>
+			<groupId>com.laputa</groupId>
+			<artifactId>laputa-upms-api</artifactId>
+		</dependency>
+		<!--swagger-->
+		<dependency>
+			<groupId>com.laputa</groupId>
+			<artifactId>laputa-common-swagger</artifactId>
+		</dependency>
+		<!--安全模块-->
+		<dependency>
+			<groupId>com.laputa</groupId>
+			<artifactId>laputa-common-xss</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.laputa</groupId>
+			<artifactId>laputa-common-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.laputa</groupId>
+			<artifactId>laputa-common-log</artifactId>
+		</dependency>
+		<!-- 支付依赖-->
+		<dependency>
+			<groupId>com.github.javen205</groupId>
+			<artifactId>IJPay-WxPay</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.javen205</groupId>
+			<artifactId>IJPay-AliPay</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.binarywang</groupId>
+			<artifactId>weixin-java-mp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.yungouos.pay</groupId>
+			<artifactId>yungouos-pay-sdk</artifactId>
+			<version>2.0.4</version>
+		</dependency>
+		<!--web 模块-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!--undertow容器-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

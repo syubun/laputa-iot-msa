@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.laputa.iot.common.log.LogAutoConfiguration
+org.springframework.boot.env.EnvironmentPostProcessor=\
+    com.laputa.iot.common.log.init.ApplicationLoggerInitializer

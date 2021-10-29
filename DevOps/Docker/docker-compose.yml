@@ -1,0 +1,40 @@
+version: '3'
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:3.4.3
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo/db:/data/db
+      - ./Shanghai:/etc/localtime
+  mysql:
+    container_name: mysql
+    image: mysql:8.0.19
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - "./mysql/init:/docker-entrypoint-initdb.d/"
+    command:
+      --max_connections=1000
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --default-authentication-plugin=mysql_native_password
+      --lower_case_table_names=1  
+  spring:
+    container_name: spring
+    image: java:8
+    restart: always 
+    ports:
+      - "8910:80"
+      - "465:465"
+    command: "java -jar /habit.jar"
+    volumes: 
+      - "./habit.jar:/habit.jar"
+    depends_on: 
+      - mysql
+      - mongo

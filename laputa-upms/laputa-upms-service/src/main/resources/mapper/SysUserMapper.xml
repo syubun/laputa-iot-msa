@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~
+  ~      Copyright (c) 2018-2025, Laputa IOT All rights reserved.
+  ~
+  ~  Redistribution and use in source and binary forms, with or without
+  ~  modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice,
+  ~  this list of conditions and the following disclaimer.
+  ~  Redistributions in binary form must reproduce the above copyright
+  ~  notice, this list of conditions and the following disclaimer in the
+  ~  documentation and/or other materials provided with the distribution.
+  ~  Neither the name of the www.laputa-iot.com developer nor the names of its
+  ~  contributors may be used to endorse or promote products derived from
+  ~  this software without specific prior written permission.
+  ~  Author: SommerJiang (sommer_jiang@163.com)
+  ~
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laputa.iot.upms.mapper.SysUserMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="baseResultMap" type="com.laputa.iot.upms.api.vo.UserVO">
+		<id column="uid" property="id"/>
+		<result column="username" property="username"/>
+		<result column="name" property="name"/>
+		<result column="password" property="password"/>
+		<result column="salt" property="salt"/>
+		<result column="phone" property="phone"/>
+		<result column="avatar" property="avatar"/>
+		<result column="email" property="email"/>
+		<result column="ucreate_time" property="createTime"/>
+		<result column="uupdate_time" property="updateTime"/>
+		<result column="lock_flag" property="lockFlag"/>
+		<result column="deleted" property="deleted"/>
+		<result column="tenant_id" property="tenantId"/>
+		<collection property="roleList" ofType="com.laputa.iot.upms.api.entity.SysRole"
+                    select="com.laputa.iot.upms.mapper.SysRoleMapper.listRolesByUserId" column="uid">
+		</collection>
+	</resultMap>
+
+	<!-- userVo结果集 -->
+	<resultMap id="userVoResultMap" type="com.laputa.iot.upms.api.vo.UserVO">
+		<id column="uid" property="id"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="salt" property="salt"/>
+		<result column="phone" property="phone"/>
+		<result column="avatar" property="avatar"/>
+		<result column="email" property="email"/>
+		<result column="ucreate_time" property="createTime"/>
+		<result column="uupdate_time" property="updateTime"/>
+		<result column="lock_flag" property="lockFlag"/>
+		<result column="deleted" property="deleted"/>
+		<result column="tenant_id" property="tenantId"/>
+		<result column="dept_name" property="deptName"/>
+		<collection property="roleList" ofType="com.laputa.iot.upms.api.vo.SysRoleVO">
+			<id column="rid" property="id"/>
+			<result column="name" property="name"/>
+			<result column="code" property="code"/>
+			<result column="role_desc" property="roleDesc"/>
+			<result column="rcreate_time" property="createTime"/>
+
+		</collection>
+	</resultMap>
+
+	<sql id="userRoleSql">
+		u.id uid,
+		u.username,
+		u.password,
+		u.salt,
+		u.phone,
+		u.avatar,
+		u.deleted,
+		u.lock_flag,
+		u.tenant_id,
+		u.create_time  ucreate_time,
+		u.update_time  uupdate_time,
+		r.id rid,
+		r.role_name,
+		r.role_code,
+		r.role_desc,
+		r.create_time  rcreate_time,
+	</sql>
+
+	<sql id="userRoleDeptSql">
+		u.user_id,
+		u.username,
+		u.name,
+		u.password,
+		u.salt,
+		u.phone,
+		u.avatar,
+		u.remark,
+		u.deleted,
+		u.lock_flag,
+		u.tenant_id,
+		u.create_time  ucreate_time,
+		u.update_time  uupdate_time,
+		r.role_id,
+		r.role_name,
+		r.role_code,
+		r.role_desc,
+		r.create_time  rcreate_time,
+		r.update_time  rupdate_time,
+
+    </sql>
+
+	<select id="getUserVoByUsername" resultMap="userVoResultMap">
+		SELECT
+			<include refid="userRoleSql"/>
+		FROM
+		sys_user  u
+		LEFT JOIN sys_user_role  ur ON ur.user_id = u.id
+		LEFT JOIN sys_role  r ON r.id = ur.role_id
+			WHERE u.username = #{username}
+	</select>
+
+	<select id="getUserVoById" resultMap="userVoResultMap">
+        SELECT
+	   		<include refid="userRoleDeptSql"/>
+        FROM
+            sys_user  u
+            LEFT JOIN sys_user_role  ur ON ur.user_id = u.user_id
+            LEFT JOIN sys_role  r ON r.role_id = ur.role_id
+        WHERE
+           u.user_id = #{id}
+    </select>
+
+	<select id="getUserVosPage" resultMap="baseResultMap">
+		SELECT
+		u.id uid,
+		u.name,
+		u.username,
+		u.password,
+		u.salt,
+		u.phone,
+		u.avatar,
+		u.create_time  ucreate_time,
+		u.update_time  uupdate_time,
+		u.deleted,
+		u.email,
+		u.lock_flag,
+		u.tenant_id
+		FROM
+		sys_user  u
+
+		<where>
+			u.deleted = '0'
+			<if test="query.keyword != null and query.keyword != ''">
+				AND ( u.username LIKE CONCAT('%',#{query.keyword},'%')
+				OR  u.name LIKE CONCAT('%',#{query.keyword},'%') )
+			</if>
+
+		</where>
+		ORDER BY u.create_time ASC
+	</select>
+</mapper>

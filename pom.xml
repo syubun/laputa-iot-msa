@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~
+  ~      Copyright (c) 2018-2025, Laputa IOT All rights reserved.
+  ~
+  ~  Redistribution and use in source and binary forms, with or without
+  ~  modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice,
+  ~  this list of conditions and the following disclaimer.
+  ~  Redistributions in binary form must reproduce the above copyright
+  ~  notice, this list of conditions and the following disclaimer in the
+  ~  documentation and/or other materials provided with the distribution.
+  ~  Neither the name of the www.laputa-iot.com developer nor the names of its
+  ~  contributors may be used to endorse or promote products derived from
+  ~  this software without specific prior written permission.
+  ~  Author: SommerJiang (sommer_jiang@163.com)
+  ~
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.laputa</groupId>
+  <artifactId>laputa-iot-msa</artifactId>
+  <version>1.1.0</version>
+  <name>${project.artifactId}</name>
+  <packaging>pom</packaging>
+  <organization>
+    <name>sommer</name>
+    <url>https://www.laputa-iot.com</url>
+  </organization>
+ 
+  <properties>
+    <spring-boot.version>2.5.2</spring-boot.version>
+    <spring-cloud.version>2020.0.3</spring-cloud.version>
+    <!--        <spring-cloud.version>Hoxton.SR11</spring-cloud.version>-->
+    <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.version>3.8.1</maven.compiler.version>
+    <spring.checkstyle.version>0.0.28</spring.checkstyle.version>
+    <git.commit.version>2.2.5</git.commit.version>
+    <spring-boot-admin.version>2.4.2</spring-boot-admin.version>
+    <hutool.version>5.7.3</hutool.version>
+    <captcha.version>1.2.7</captcha.version>
+    <swagger.fox.version>3.0.0</swagger.fox.version>
+    <knife4j.version>2.0.9</knife4j.version>
+    <velocity.version>1.7</velocity.version>
+    <lcn.version>4.1.0</lcn.version>
+    <jasypt.version>3.0.3</jasypt.version>
+    <ttl.version>2.11.4</ttl.version>
+    <ureport.version>2.2.9</ureport.version>
+    <!--        <aws.version>1.11.543</aws.version>-->
+    <aws.version>1.12.21</aws.version>
+    <xxl.job.version>2.3.0</xxl.job.version>   
+    <activiti.version>5.22.0</activiti.version>   
+    <jjwt.version>0.7.0</jjwt.version>   
+    <aliyun.sdk.version>3.3.1</aliyun.sdk.version>  
+    <aliyun.sms.sdk.version>1.0.0</aliyun.sms.sdk.version> 
+    <aliyun.oss.version>2.5.0</aliyun.oss.version>  
+    <docker.registry>192.168.4.51</docker.registry>    
+    <docker.host>http://192.168.4.51:2375</docker.host>  
+    <docker.namespace>library</docker.namespace> 
+    <docker.username>sommer78</docker.username>  
+    <docker.password>Yvonne@1227</docker.password>  
+    <docker.plugin.version>0.33.0</docker.plugin.version>  
+    <!-- docker??????--> 
+    <docker.skip>false</docker.skip> 
+    <log-path>E:\LAPUTA-IOT-PLATFORM\laputa-log</log-path>
+       
+  </properties>
+ 
+  <dependencies>
+    <!--bootstrap ??????-->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-bootstrap</artifactId>
+
+    </dependency>
+    <!--?????????????-->    
+    <dependency>
+     <groupId>org.springframework.boot</groupId>
+      
+      <artifactId>spring-boot-configuration-processor</artifactId>
+
+      <optional>true</optional>
+
+    
+    </dependency>    
+    <!--jasypt????????????-->    <dependency>
+      <groupId>com.github.ulisesbocchio</groupId>
+      <artifactId>jasypt-spring-boot-starter</artifactId>
+      <version>${jasypt.version}</version>
+
+    </dependency>    <!--???-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <!--???????-->
+    <dependency>
+      <groupId>de.codecentric</groupId>
+      <artifactId>spring-boot-admin-starter-client</artifactId>
+      <version>${spring-boot-admin.version}</version>
+    </dependency>
+    <!--Lombok-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <!--????????-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>com.vaadin.external.google</groupId>
+          <artifactId>android-json</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.cloud</groupId>-->
+    <!--            <artifactId>spring-cloud-starter-security</artifactId>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.cloud</groupId>-->
+    <!--            <artifactId>spring-cloud-starter-oauth2</artifactId>-->
+    <!--        </dependency>-->
+  </dependencies>
+ 
+  <modules>
+
+    <module>laputa-upms</module>
+    <module>laputa-gateway</module>
+    <module>laputa-auth</module>
+    <module>laputa-common</module>
+    <module>laputa-support</module>
+    
+    <module>laputa-third</module>
+    
+    <module>laputa-device</module>
+
+    <module>laputa-org</module>
+
+    <module>laputa-workflow</module>
+
+    <module>laputa-cms</module>
+    
+    <module>laputa-msg</module>
+      
+  </modules>
+ 
+  <dependencyManagement>
+    <dependencies>
+      <!--Laputa IOT msa ???bom-->
+      <dependency>
+        <groupId>com.laputa</groupId>
+        <artifactId>laputa-common-bom</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!--spring boot ???????????-->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!--spring cloud ???????????-->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!--spring cloud alibaba-->
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <version>${spring-cloud-alibaba.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!--web ???-->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        <version>${spring-boot.version}</version>
+        <exclusions>
+          <!--???tomcat????-->
+          <exclusion>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <groupId>org.springframework.boot</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+                          
+    
+    
+    </dependencies>
+       
+  </dependencyManagement>
+ 
+  <build>
+    <finalName>${project.name}</finalName>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <pluginManagement>
+      <plugins>
+        <!--spring boot ?????-->
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring-boot.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        
+        <!--maven  docker ?????? -->
+        <plugin>
+          <groupId>io.fabric8</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <version>${docker.plugin.version}</version>
+          <configuration>
+            <dockerHost>${docker.host}</dockerHost>
+            <registry>${docker.registry}</registry>
+            <authConfig>
+              <push>
+                <username>${docker.username}</username>
+                <password>${docker.password}</password>
+              </push>
+            </authConfig>
+            <images>
+              <image>
+                <name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}</name>
+                <build>
+                  <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                </build>
+              </image>
+            </images>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <!--?????????????????spring ????-->
+      <plugin>
+        <groupId>io.spring.javaformat</groupId>
+        <artifactId>spring-javaformat-maven-plugin</artifactId>
+        <version>${spring.checkstyle.version}</version>
+      </plugin>      <!--????????????????-->
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.version}</version>
+        <configuration>
+          <target>${maven.compiler.target}</target>
+          <source>${maven.compiler.source}</source>
+          <encoding>UTF-8</encoding>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    <!--??????????? git commit ??????-->
+    <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>${git.commit.version}</version>
+      </plugin>
+    </plugins>
+       
+  </build>
+ 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>aliyun-plugin</id>
+      <url>https://maven.aliyun.com/repository/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+ 
+  <repositories>
+    <!--?????????-->
+    <repository>
+      <id>aliyun</id>
+      <name>aliyun</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+    </repository>
+  </repositories>
+ 
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <properties>
+        <profiles.active>dev</profiles.active>
+        <pom.nacos.ip>laputa-register</pom.nacos.ip>
+        <pom.nacos.port>8848</pom.nacos.port>
+        <pom.nacos.namespace>laputa-iot-dev</pom.nacos.namespace>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+
+    <profile>
+
+      <id>test</id>
+      <properties>
+        <profiles.active>test</profiles.active>
+        <pom.nacos.ip>laputa-register</pom.nacos.ip>
+        <pom.nacos.port>8848</pom.nacos.port>
+        <pom.nacos.namespace>laputa-iot-test</pom.nacos.namespace>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>prod</id>
+      <properties>
+        <profiles.active>prod</profiles.active>
+        <pom.nacos.ip>laputa-register</pom.nacos.ip>
+        <pom.nacos.port>8848</pom.nacos.port>
+        <pom.nacos.namespace>laputa-iot-prod</pom.nacos.namespace>
+      </properties>
+    </profile>
+       
+  </profiles>
+
+</project>

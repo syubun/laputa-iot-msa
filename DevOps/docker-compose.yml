@@ -1,0 +1,182 @@
+# 使用说明 V1.1.0
+# 1. 使用docker-compose  宿主机不需要配置host来发现
+# 2. 无需修改源码，根目录  docker-compose up 即可
+# 3. 静静等待服务启动
+
+version: '2'
+services:
+
+  laputa-mysql:
+#    build:
+#      context: docker-compose/db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    container_name: laputa-mysql
+    image: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker-compose/data/mysql-data:/var/lib/mysql
+      - ./docker-compose/config/mysql/db/:/docker-entrypoint-initdb.d/
+    command:
+      --lower_case_table_names=1
+      --max_connections=1000
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --default-authentication-plugin=mysql_native_password
+
+
+  laputa-redis:
+    container_name: laputa-redis
+    image: redis:5.0.7
+    restart: always
+    ports:
+      - 6379:6379
+
+  laputa-minio:
+    image: minio/minio
+    container_name: laputa-minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    restart: always
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_DOMAIN: laputa
+      MINIO_ROOT_USER: laputa
+      MINIO_ROOT_PASSWORD: laputa@123456 #大于等于8位
+    volumes:
+        - ./DevOps/data/minio-data:/data # 映射文件路径
+   
+  laputa-register:
+    build:
+      context: ../laputa-register
+    restart: always
+    container_name: laputa-register
+    image: laputa-register
+    depends_on:
+      - laputa-mysql
+    ports:
+      - 8848:8848
+
+  laputa-rabbitmq:
+    build:
+      context: ./dependencies/rabbitmq/
+      dockerfile: ./Dockerfile
+    image: laputa/laputa-rabbitmq:1.0.0
+    restart: always
+    ports:
+      - 5672:5672
+      - 1883:1883
+      - 61613:61613
+      - 15672:15672
+    container_name: laputa-rabbitmq
+    hostname: laputa-rabbitmq
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+#    networks:
+#      laputa:
+#        aliases:
+#          - laputa-rabbitmq
+
+  laputa-emqx:
+    build:
+      context: ./dependencies/emqx/
+      dockerfile: ./Dockerfile
+    image: pnoker/laputa-emqx:1.0.0
+    restart: always
+    ports:
+      - 1884:1884
+      - 18084:18084
+    environment:
+      - EMQX_LOADED_PLUGINS=emqx_recon,emqx_retainer,emqx_management,emqx_dashboard,emqx_auth_username
+    container_name: laputa-emqx
+    hostname: laputa-emqx
+    volumes:
+      - E:\DOCKER\emqx\etc:/opt/emqx/etc
+      - E:\DOCKER\emqx\lib:/opt/emqx/lib
+      - E:\DOCKER\emqx\data:/opt/emqx/data
+      - E:\DOCKER\emqx\log:/opt/emqx/log
+    networks:
+      laputa:
+        aliases:
+          - laputa-emqx
+
+  laputa-mongo:
+    build:
+      context: ./dependencies/mongo/
+      dockerfile: ./Dockerfile
+    image: laputa/laputa-mongo:1.0.0
+    restart: always
+    ports:
+      - 27017:27017
+    container_name: laputa-mongo
+    hostname: laputa-mongo
+    volumes:
+      - ./data/mongo_config:/data/configdb
+      - ./data/mongo_db:/data/db
+    networks:
+      laputa:
+        aliases:
+          - laputa-mongo
+
+
+  laputa-upms-service:
+    build:
+      context: ../laputa-upms/laputa-upms-service
+    restart: always
+    container_name: laputa-upms-service
+    depends_on:
+      - laputa-register
+    image: laputa-upms-service
+
+  laputa-gateway:
+    build:
+      context: ../laputa-gateway
+    restart: always
+    container_name: laputa-gateway
+    image: laputa-gateway
+    depends_on:
+      - laputa-upms-service
+    ports:
+      - 9999:9999
+
+
+  laputa-auth:
+    build:
+      context: ../laputa-auth
+    restart: always
+    container_name: laputa-auth
+    image: laputa-auth
+    depends_on:
+      - laputa-upms-service
+
+
+  laputa-monitor:
+    build:
+      context: ../laputa-visual/laputa-monitor
+    restart: always
+    image: laputa-monitor
+    container_name: laputa-monitor
+    depends_on:
+      - laputa-register
+    ports:
+      - 5001:5001
+
+volumes:
+  logs:
+  mysql:
+  mongo_config:
+  mongo_db:
+  redis:
+  rabbitmq:
+  emqx_etc:
+  emqx_lib:
+  emqx_data:
+  emqx_log:
+  portainer:
+
+networks:
+  laputa:
+    driver: 'bridge'

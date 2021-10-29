@@ -1,0 +1,17 @@
+version: '2'
+services:
+  laputa-redis:
+    image: redis:5.0.7
+    restart: always
+    container_name: laputa-redis
+    ports:
+      - 6379:6379
+#    command: redis-server --requirepass laputa --appendonly yes # 启动redis服务并添加密码为：laputa,并开启redis持久化配置
+    volumes:
+      - ../data/redis_data:/data
+    networks:
+      - laputa
+      
+networks:
+  laputa:
+    external: true

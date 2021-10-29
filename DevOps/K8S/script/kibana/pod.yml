@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kibana
+  labels:
+    app: kibana
+
+spec:
+  serviceName: kibana
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+        - name: kibana
+          image: foxiswho/elk:kibana-7.6.1
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 350m
+              memory: 768Mi
+            requests:
+              cpu: 300m
+              memory: 512Mi
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+#            - name: SERVER_NAME
+#              value: kibana
+#            - name: ELASTICSEARCH_HOSTS
+#              value: http://elasticsearch-0.elasticsearch.default.svc.cluster.local:9200
+          ports:
+            - containerPort: 5601
+          volumeMounts:
+            - name: vol-conf
+              mountPath: /usr/share/kibana/config/kibana.yml
+      volumes:
+        - name: vol-conf
+          hostPath:
+            path: /www/k8s/foxdev/kibana/config/kibana.yml
+            type: File

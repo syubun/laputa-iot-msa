@@ -1,0 +1,26 @@
+server:
+  port: 5005
+
+laputa:
+  nacos:
+    ip: @pom.nacos.ip@
+    port: @pom.nacos.port@
+    namespace: @pom.nacos.namespace@
+
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:laputa-register}:${NACOS_PORT:8848}
+        namespace: ${laputa.nacos.namespace}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${laputa.nacos.namespace}
+        file-extension: yml
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+  profiles:
+    active: @profiles.active@
+

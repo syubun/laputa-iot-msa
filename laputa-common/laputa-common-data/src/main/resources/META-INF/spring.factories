@@ -1,0 +1,9 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.laputa.iot.common.data.cache.RedisTemplateConfig,\
+    com.laputa.iot.common.data.cache.RedisCacheManagerConfig,\
+    com.laputa.iot.common.data.cache.RedisCacheAutoConfiguration,\
+    com.laputa.iot.common.data.tenant.LaputaTenantConfigProperties,\
+    com.laputa.iot.common.data.tenant.TenantContextHolderFilter,\
+    com.laputa.iot.common.data.tenant.LaputaTenantConfiguration,\
+    com.laputa.iot.common.data.mybatis.MybatisPlusConfiguration,\
+    com.laputa.iot.common.data.resolver.TenantKeyStrResolver

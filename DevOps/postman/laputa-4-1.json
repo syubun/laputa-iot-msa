@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "2cfc2c9b-e0a7-4359-a1d2-a2c3d20660c0",
+		"name": "laputa-iot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "获取token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp0ZXN0",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": " zh-CN,zh;",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "JFat0Zdc",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "server",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://172.17.0.110:9999/auth/oauth/token?grant_type=password",
+					"protocol": "http",
+					"host": [
+						"172",
+						"17",
+						"0",
+						"110"
+					],
+					"port": "9999",
+					"path": [
+						"auth",
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刷新token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp0ZXN0"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "scope",
+							"value": "server",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "eccda61e-0c68-43af-8f67-6302cb389612",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://laputa-gateway:9999/auth/oauth/token?grant_type=refresh_token",
+					"protocol": "http",
+					"host": [
+						"laputa-gateway"
+					],
+					"port": "9999",
+					"path": [
+						"auth",
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+
+  name: prometheus
+  labels:
+    app: prometheus
+spec:
+  serviceName: prometheus
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+        - name: prometheus
+          image: prom/prometheus:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 350m
+              memory: 512Mi
+            requests:
+              cpu: 300m
+              memory: 512Mi
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - name: vol
+              mountPath: /etc/prometheus/prometheus.yml
+      volumes:
+        - name: vol
+          hostPath:
+              path: /www/k8s/foxdev/prometheus/conf/prometheus-cluster.yaml
+              type: File
