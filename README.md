@@ -2,7 +2,7 @@
 
 
 <p align=center>
-  <a href="http://www.moguit.cn">
+  <a href="http://www.laputa-iot.com">
     <img src="./doc/images/gitee/favicon2.ico" alt="Laputa IOT 物联网平台" style="width:200px;height:200px">
   </a>
 </p>
@@ -38,23 +38,40 @@ mvn clean install -DskipTests
 
 # laputa-iot
 127.0.0.1 register.laputa-iot.com 
+
 127.0.0.1 gateway.laputa-iot.com 
+
 127.0.0.1 redis.laputa-iot.com 
+
 127.0.0.1 xxl.laputa-iot.com 
+
 127.0.0.1 mysql.laputa-iot.com 
+
 127.0.0.1 sentinel.laputa-iot.com 
+
 127.0.0.1 monitor.laputa-iot.com 
 
+
 127.0.0.1 laputa-register 
+
 127.0.0.1 laputa-gateway 
+
 127.0.0.1 laputa-redis 
+
 127.0.0.1 laputa-xxl 
+
 127.0.0.1 laputa-mysql 
+
 127.0.0.1 laputa-sentinel 
+
 127.0.0.1 laputa-monitor 
+
 127.0.0.1 laputa-mqtt 
+
 127.0.0.1 laputa-es 
+
 127.0.0.1 laputa-rq 
+
 
 
 
