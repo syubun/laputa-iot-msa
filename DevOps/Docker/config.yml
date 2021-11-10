@@ -3,10 +3,10 @@ log:
   level: debug
 storage:
   oss:
-    accesskeyid: LTAIQYowl1zz8gzf
-    accesskeysecret: VphoHmcNQF8aaxpa330Re2zJLIgQX0
+    accesskeyid: ############################
+    accesskeysecret: ########################
     region: oss-cn-shanghai
-    bucket: sommer78
+    bucket: ####
     rootdirectory: dockers
     secure: false
     internal: false
