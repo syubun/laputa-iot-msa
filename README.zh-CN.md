@@ -1,34 +1,33 @@
 # Laputa-IOT-MSA
 
+
 <p align=center>
-  <a href="https://github.com/sommer78/">
-    <img src="./assets/logo.png" alt="Laputa IOT 物联网平台" style="width:200px;height:200px">
+  <a href="http://www.moguit.cn">
+    <img src="./doc/images/gitee/favicon2.ico" alt="Laputa IOT 物联网平台" style="width:200px;height:200px">
   </a>
 </p>
 <p align=center>
-   Laputa-IOT-MSA，A front and back separated Iot platform based on microservices architecture
+   Laputa-IOT-MSA，一个基于微服务架构的前后端分离物联网中台
 </p>
 <p align="center">
-<a target="_blank" href="https://github.com/sommer78/laputa-iot-msa">
+<a target="_blank" href="https://gitee.com/moxi159753/mogu_blog_v2">
     	<img src="https://img.shields.io/hexpm/l/plug.svg" ></img>
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
         <img src="https://img.shields.io/badge/springboot-2.2.2.RELEASE-green" ></img>
 <img src="https://img.shields.io/badge/SpringCloud%20Alibaba-2021.1-yellowgreen" ></img>
-<img src="https://img.shields.io/badge/vue-3.0.1-green" ></img>
+<img src="https://img.shields.io/badge/vue-2.5.17-green" ></img>
 <img src="https://img.shields.io/badge/swagger-3.0.0-brightgreen" ></img>
 <img src="https://img.shields.io/badge/mybatis--plus-3.1.2-green" ></img>
 </a></p>
-
-
 
 
 [项目介绍](#项目介绍) | [站点演示](#站点演示) | [项目特点](#项目特点) | [技术架构](#技术选型) | [项目目录](#项目目录) | [项目文档](#项目文档)  | [快速开始](#快速开始) | [视频教程](#视频教程)| [项目截图](#移动端截图) | [更新记录](https://gitee.com/moxi159753/mogu_blog_v2/releases) | [笔记仓库](https://gitee.com/moxi159753/LearningNotes)
 
 ##  前言
 
-229/5000 
-Project for more detailed [project build documentation] (https://www.yuque.com/longmao-ejt1b/pheluc/ta2445, It also includes the construction of Laputa IOT platform under **Windows**, **Linux** and **Docker** environment. In the process of using the problem, first carefully read **project construction document** **, at the same time [FAQ document](http://www.moguit.cn/#/info?blogOid=288) also collected questions from partners, you can read in advance ~
-[Before asking questions] you can go to [Baidu](https://www.baidu.com/) or [Google](https://www.google.com/). Some questions can be solved quickly through the **search engine**
+项目已有较详细的  [项目搭建文档](http://moxi159753.gitee.io/mogu_blog_doc) ，同时包括了 **Windows**、**Linux** 以及 **Docker** 环境下Laputa IOT 物联网平台的搭建。在使用过程中遇到问题时，首先认真阅读**项目搭建文档** ，同时 [FAQ文档](http://www.moguit.cn/#/info?blogOid=288) 还收集了小伙伴咨询的问题，可以提前阅读~
+
+【提问前】可以先 [百度](https://www.baidu.com/) 或者 [Google](https://www.google.com/) 进行解决，有的问题通过**搜索引擎**很快就能得到解决
 
 【提问前】可以首先看看 [issue](https://gitee.com/moxi159753/mogu_blog_v2/issues) 或者  [FAQ文档](http://www.moguit.cn/#/info?blogOid=288)，可能你的问题别人也遇到过
 
@@ -36,12 +35,8 @@ Project for more detailed [project build documentation] (https://www.yuque.com/l
 
 【提问】推荐使用 [Gitee issue](https://gitee.com/moxi159753/mogu_blog_v2/issues) 进行提问，因为issue解决后能够保留解决记录，帮助其它小伙伴避坑。其次可以使用  <a href="##关注&交流">QQ群 </a>  或者 <a href="##前言">微信群 </a> 进行提问。群里提问注意提问的时间，把遇到**问题的详细过程都描述清楚**，最好**配上图文信息**，这样能有利于更高效的解决问题。
 
-**English** | [中文](./README.zh-CN.md)
-
-# Project Deployment
+# 项目部署
 mvn clean install -DskipTests
-
-
 
 # laputa-iot
 127.0.0.1 register.laputa-iot.com 
@@ -62,10 +57,6 @@ mvn clean install -DskipTests
 127.0.0.1 laputa-mqtt 
 127.0.0.1 laputa-es 
 127.0.0.1 laputa-rq 
-
-# 项目预览
-
-mvn clean install -DskipTests
 
 
 
